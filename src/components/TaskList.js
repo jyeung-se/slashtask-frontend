@@ -4,7 +4,7 @@ import Task from './Task'
 
 const TaskList = props => {
   // console.log("TaskList props", props)
-  const mappedTasks = props.tasks.map((task, index) => <Task task={task} key={index} handleEditTask={props.handleEditTask} handleDeleteTask={props.handleDeleteTask} />)
+  const mappedTasks = props.tasks.map((task, index) => <Task task={task} key={index} handleEditTask={props.handleEditTask} handleSlashTask={props.handleSlashTask} handleDeleteTask={props.handleDeleteTask} />)
 
   return (
     <table className="ui celled striped padded table">
@@ -20,13 +20,13 @@ const TaskList = props => {
             <h3 className="ui center aligned header">Date Posted</h3>
           </th>
           <th>
-            <h3 className="ui center aligned header">Date Slashed</h3>
+            <h3 className="ui center aligned header">Update Task</h3>
           </th>
           <th>
-            <h3 className="ui center aligned header">Update</h3>
+            <h3 className="ui center aligned header">Slash Task</h3>
           </th>
           <th>
-            <h3 className="ui center aligned header">Remove</h3>
+            <h3 className="ui center aligned header">Delete Task</h3>
           </th>
         </tr>
 

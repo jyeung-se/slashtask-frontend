@@ -66,12 +66,12 @@ class CreateForm extends Component {
                 type="text"
                 name="description"
                 placeholder="Task Description"
-                value={this.state.newTask.body}
+                value={this.state.newTask.description}
                 onChange={this.updateNewTaskInputs}
               />
             </div>
             <button className="ui button" type="submit" value="Submit">
-              Submit
+              Create Task
             </button>
           </div>
         </form>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import EditForm from '../components/EditForm'
 import CreateForm from '../components/CreateForm'
 import TaskList from '../components/TaskList'
+import SlashedTaskList from '../components/SlashedTaskList'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -12,6 +13,7 @@ class TaskContainer extends Component {
     this.state={
       tasks: [],
       currentTask: null,
+      slashedTasks: [],
       user: {
         id: 1,
         user_name: "AerosDawson",
@@ -29,6 +31,12 @@ class TaskContainer extends Component {
     .then(res => res.json())
     .then(tasksData => this.setState({
       tasks: tasksData
+    }))
+
+    fetch('http://localhost:3000/api/v1/slashed_tasks')
+    .then(res => res.json())
+    .then(slashedTasksData => this.setState({
+      slashedTasks: slashedTasksData
     }))
   }
 
@@ -48,8 +56,8 @@ class TaskContainer extends Component {
       body: JSON.stringify({
         "title": `${task.title}`,
         "description": `${task.description}`,
-        "date_posted": `${task.date_posted}`,
-        "date_completed": `${task.date_completed}`,
+        "date_posted": `${task.created_at}`,
+        // "date_completed": `${task.date_completed}`,
         // "user_id": `${this.state.user.id}`
       })
     }).then(res => console.log("Created a new task."))
@@ -88,6 +96,27 @@ class TaskContainer extends Component {
   }
 
 
+  handleSlashTask = (task) => {
+    fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+      method: "DELETE",
+      headers: {"Content-Type": "application/json"}
+    }).then(res => console.log("The selected task has been slashed."))
+    fetch(`http://localhost:3000/api/v1/slashed_tasks/`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        "title": `${task.title}`,
+        "description": `${task.description}`,
+        "date_completed": `${task.created_at}`
+      })
+    }).then(res => console.log("The selecte task has been created in the slashedTaskList."))
+    this.setState({
+      slashedTasks: [...this.state.slashedTasks, task],
+      tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
+    })
+  }
+
+
   handleDeleteTask = (task) => {
     fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
       method: "DELETE",
@@ -103,6 +132,7 @@ class TaskContainer extends Component {
     // console.log("currentTask is", this.state.currentTask)
     // console.log('task container', this.props)
     // console.log("tasks is", this.state.tasks)
+    console.log("slashedTasks are", this.state.slashedTasks)
 
     const taskList =
     <div>
@@ -110,7 +140,17 @@ class TaskContainer extends Component {
       <h2>Hi {this.state.user.first_name}, this is your up-to-date task list.</h2>
       <br/>
       <a href="/newtask"><button className="ui button left">Create a new task</button></a>
-      <TaskList tasks={this.state.tasks} handleEditTask={this.handleEditTask} handleDeleteTask={this.handleDeleteTask} />
+      {"  ~  " + "  ~  "}
+      <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
+      <TaskList tasks={this.state.tasks} handleEditTask={this.handleEditTask} handleSlashTask={this.handleSlashTask} handleDeleteTask={this.handleDeleteTask} />
+    </div>
+
+    const slashedTaskList =
+    <div>
+      <h2>Hi {this.state.user.first_name}, the following are your slashed tasks.</h2>
+      <br/>
+      <a href="/"><button className="ui button left">Back to my Task List</button></a>
+      <SlashedTaskList slashedTasks={this.state.slashedTasks} handleSlashTask={this.handleSlashTask} />
     </div>
 
     // const createForm =
@@ -136,6 +176,7 @@ class TaskContainer extends Component {
           <br/>
           <br/>
           <Route exact path="/" component={() => taskList} />
+          <Route exact path="/slashed_tasks" component={() => slashedTaskList} />
         </div>
       </Router>
     )
