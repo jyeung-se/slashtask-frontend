@@ -3,6 +3,8 @@ import EditForm from '../components/EditForm'
 import CreateForm from '../components/CreateForm'
 import TaskList from '../components/TaskList'
 import SlashedTaskList from '../components/SlashedTaskList'
+import FrontPage from '../components/FrontPage'
+import LoginPage from '../components/LoginPage'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -20,7 +22,8 @@ class TaskContainer extends Component {
         first_name: "Jack",
         last_name: "Yeung",
         city: "New York",
-        state: "NY"
+        state: "NY",
+        password: 'jackjack'   // NOTE: Need to add into database a column for password in the user model!!!
       }
     }
   }
@@ -134,6 +137,16 @@ class TaskContainer extends Component {
     // console.log("tasks is", this.state.tasks)
     // console.log("slashedTasks are", this.state.slashedTasks)
 
+    const frontPage =
+    <div>
+      <FrontPage user={this.state.user} />
+    </div>
+
+    const loginPage =
+    <div>
+      <LoginPage user={this.state.user} />
+    </div>
+
     const taskList =
     <div>
       {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks} currentTask={this.state.currentTask} updateExistingTaskInputs={this.updateExistingTaskInputs} handleEditSubmit={this.handleEditSubmit} />}
@@ -149,7 +162,7 @@ class TaskContainer extends Component {
     <div>
       <h2>Hi {this.state.user.first_name}, the following are your slashed tasks.</h2>
       <br/>
-      <a href="/"><button className="ui button left">Back to my Task List</button></a>
+      <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
       <SlashedTaskList slashedTasks={this.state.slashedTasks} handleSlashTask={this.handleSlashTask} />
     </div>
 
@@ -175,7 +188,9 @@ class TaskContainer extends Component {
           {/* <Route exact path="/edittask" component={() => editForm} /> */}
           <br/>
           <br/>
-          <Route exact path="/" component={() => taskList} />
+          <Route exact path="/" component={() => frontPage} />
+          <Route exact path="/login" component={() => loginPage} />
+          <Route exact path="/tasks" component={() => taskList} />
           <Route exact path="/slashed_tasks" component={() => slashedTaskList} />
         </div>
       </Router>

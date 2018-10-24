@@ -35,7 +35,7 @@ class CreateForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.handleNewTaskSubmit(this.state.newTask)
-    this.props.history.push("/")
+    this.props.history.push("/tasks")
   }
 
 
@@ -44,6 +44,7 @@ class CreateForm extends Component {
     return (
       <Fragment>
         <br/>
+        <a href="/"><button className="ui button left">Back to my Task List</button></a>
         <h1>Create a New Task</h1>
         <form
           className="ui form center aligned sixteen wide column"
