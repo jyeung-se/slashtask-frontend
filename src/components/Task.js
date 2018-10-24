@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Task = props => {
-  console.log("Tasks props", props)
+  // console.log("Tasks props", props)
 
   return (
     <tr>

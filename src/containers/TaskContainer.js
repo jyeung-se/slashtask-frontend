@@ -132,7 +132,7 @@ class TaskContainer extends Component {
     // console.log("currentTask is", this.state.currentTask)
     // console.log('task container', this.props)
     // console.log("tasks is", this.state.tasks)
-    console.log("slashedTasks are", this.state.slashedTasks)
+    // console.log("slashedTasks are", this.state.slashedTasks)
 
     const taskList =
     <div>
@@ -140,7 +140,7 @@ class TaskContainer extends Component {
       <h2>Hi {this.state.user.first_name}, this is your up-to-date task list.</h2>
       <br/>
       <a href="/newtask"><button className="ui button left">Create a new task</button></a>
-      {"  ~  " + "  ~  "}
+      {"  ~    ~  "}
       <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
       <TaskList tasks={this.state.tasks} handleEditTask={this.handleEditTask} handleSlashTask={this.handleSlashTask} handleDeleteTask={this.handleDeleteTask} />
     </div>
@@ -181,24 +181,6 @@ class TaskContainer extends Component {
       </Router>
     )
   }
-
-
-  // NOTE: THIS BELOW COMMENTED CODE WAS FOR WHEN THE APPLICATION WAS A SINGLE PAGE APPLICATION
-  // render() {
-  //   // console.log(this.state.tasks)
-  //   return (
-  //     <div className="ui grid container">
-  //       <br/>
-  //       <h2>Create New Task</h2>
-  //       <CreateForm newTask={this.state.newTask} updateNewTaskInputs={this.updateNewTaskInputs} handleNewTaskSubmit={this.handleNewTaskSubmit} />
-  //       <h2>Edit Existing Task</h2>
-  //       <EditForm currentTask={this.state.currentTask} updateExistingTaskInputs={this.updateExistingTaskInputs} handleEditSubmit={this.handleEditSubmit} />
-  //       <p><b>Evertask Whale</b> just passin' on by. Nothing to see here folks.</p>
-  //       <TaskList tasks={this.state.tasks} handleEditTask={this.handleEditTask} handleDeleteTask={this.handleDeleteTask} />
-  //     </div>
-  //   )
-  // }
-
 
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const SlashedTask = props => {
-  console.log("SlashedTask props", props)
+  // console.log("SlashedTask props", props)
 
   return (
     <tr>
