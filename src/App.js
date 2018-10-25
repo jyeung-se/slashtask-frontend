@@ -3,6 +3,8 @@ import './App.css';
 import TaskContainer from './containers/TaskContainer.js'
 // import ImgSlider from './components/ImgSlider.js'
 // import CarouselSlider from './components/CarouselSlider.js'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 
 class App extends Component {
   render() {
