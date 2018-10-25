@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 
-// const CreateForm = (props) => {
 class CreateForm extends Component {
   constructor(props) {
     super(props)
