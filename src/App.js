@@ -6,8 +6,9 @@ import FrontPage from './components/FrontPage'
 import LoginPage from './components/LoginPage'
 import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
-import TaskList from './components/TaskList'
+import TaskList from './containers/TaskList'
 import SlashedTaskList from './components/SlashedTaskList'
+import { dispatchAllTasks, dispatchNewTask } from './actions/index'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -28,7 +29,6 @@ class App extends Component {
         last_name: "Yeung",
         city: "New York",
         state: "NY",
-        password: 'jackjack'   // NOTE: Need to add into database a column for password in the user model!!!
       }
     }
   }
@@ -37,15 +37,13 @@ class App extends Component {
   componentDidMount() {
     fetch('http://localhost:3000/api/v1/tasks')
     .then(res => res.json())
-    .then(tasksData => this.setState({
-      tasks: tasksData
-    }))
+    .then(task => dispatchAllTasks(task))
 
-    fetch('http://localhost:3000/api/v1/slashed_tasks')
-    .then(res => res.json())
-    .then(slashedTasksData => this.setState({
-      slashedTasks: slashedTasksData
-    }))
+    // fetch('http://localhost:3000/api/v1/slashed_tasks')
+    // .then(res => res.json())
+    // .then(slashedTasksData => this.setState({
+    //   slashedTasks: slashedTasksData
+    // }))
   }
 
 
@@ -58,19 +56,8 @@ class App extends Component {
 
 
   handleCreate = (task) => {
-    fetch(`http://localhost:3000/api/v1/tasks/`, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        "title": `${task.title}`,
-        "description": `${task.description}`,
-        "date_posted": `${task.created_at}`,
-        // "date_completed": `${task.date_completed}`,
-        // "user_id": `${this.state.user.id}`
-      })
-    }).then(res => console.log("Created a new task."))
+    dispatchNewTask(this.state.user.id, task)
   }
-
 
   handleEditTask = (task) => {
     this.setState({
@@ -136,7 +123,9 @@ class App extends Component {
   }
 
 
-  render() {
+  render(props) {
+    // console.log('this.state.tasks are: ', this.state.tasks)
+  console.log('props are: ', this.props)
 
     const frontPage =
       <div>

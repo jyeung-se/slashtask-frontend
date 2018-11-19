@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-
 class CreateForm extends Component {
   constructor(props) {
     super(props)
@@ -13,7 +12,8 @@ class CreateForm extends Component {
         first_name: "Jack",
         last_name: "Yeung",
         city: "New York",
-        state: "NY"
+        state: "NY",
+        password: "jackjack"
       }
     }
   }
