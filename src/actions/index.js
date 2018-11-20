@@ -40,10 +40,15 @@ export const dispatchEditTask = (task) => {
 }
 
 export const dispatchSlashTask = (task) => {
-  store.dispatch({
-    type: 'SLASH_TASK',
-    payload: task
-  })
+  fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+    method: "PATCH",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      "slashed": `${!task.slashed}`
+    })
+  // }).then(res => console.log("The selected task has been created in the slashedTaskList."))
+  }).then(res => res.json())
+  .then(slashed_task => store.dispatch({type: 'SLASH_TASK', task: slashed_task}))
 }
 
 export const dispatchDeleteTask = (task) => {

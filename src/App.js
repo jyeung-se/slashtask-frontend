@@ -7,8 +7,8 @@ import LoginPage from './components/LoginPage'
 import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
-import SlashedTaskList from './components/SlashedTaskList'
-import { dispatchAllTasks, dispatchNewTask, dispatchEditTask, dispatchDeleteTask } from './actions/index'
+import SlashedTaskList from './containers/SlashedTaskList'
+import { dispatchAllTasks, dispatchNewTask, dispatchEditTask, dispatchDeleteTask, dispatchSlashTask } from './actions/index'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -94,23 +94,24 @@ class App extends Component {
 
 
   handleSlashTask = (task) => {
-    fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
-      method: "DELETE",
-      headers: {"Content-Type": "application/json"}
-    }).then(res => console.log("The selected task has been slashed."))
-    fetch(`http://localhost:3000/api/v1/slashed_tasks/`, {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        "title": `${task.title}`,
-        "description": `${task.description}`,
-        "date_completed": `${task.created_at}`
-      })
-    }).then(res => console.log("The selecte task has been created in the slashedTaskList."))
-    this.setState({
-      slashedTasks: [...this.state.slashedTasks, task],
-      tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
-    })
+    // fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+    //   method: "DELETE",
+    //   headers: {"Content-Type": "application/json"}
+    // }).then(res => console.log("The selected task has been slashed."))
+    // fetch(`http://localhost:3000/api/v1/slashed_tasks/`, {
+    //   method: "POST",
+    //   headers: {"Content-Type": "application/json"},
+    //   body: JSON.stringify({
+    //     "title": `${task.title}`,
+    //     "description": `${task.description}`,
+    //     "date_completed": `${task.created_at}`
+    //   })
+    // }).then(res => console.log("The selected task has been created in the slashedTaskList."))
+    // this.setState({
+    //   slashedTasks: [...this.state.slashedTasks, task],
+    //   tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
+    // })
+    dispatchSlashTask(task)
   }
 
 
@@ -128,7 +129,8 @@ class App extends Component {
 
   render(props) {
     // console.log('this.state.tasks are: ', this.state.tasks)
-  console.log('props are: ', this.props)
+  // console.log('props are: ', this.props)
+  console.log('slashed tasks are', this.state.tasks.filter((task) => task.slashed === true))
 
     const frontPage =
       <div>
@@ -156,7 +158,10 @@ class App extends Component {
         <h2>Hi {this.state.user.first_name}, the following are your slashed tasks.</h2>
         <br/>
         <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
-        <SlashedTaskList slashedTasks={this.state.slashedTasks} handleSlashTask={this.handleSlashTask} />
+        <SlashedTaskList
+          slashedTasks={this.state.tasks.filter((task) => task.slashed === true)}
+          handleSlashTask={this.handleSlashTask}
+        />
       </div>
 
     return (
