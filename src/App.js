@@ -8,7 +8,7 @@ import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './components/SlashedTaskList'
-import { dispatchAllTasks, dispatchNewTask } from './actions/index'
+import { dispatchAllTasks, dispatchNewTask, dispatchEditTask, dispatchDeleteTask } from './actions/index'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -68,26 +68,28 @@ class App extends Component {
 
 
   handleEditSubmit = (task) => {
-    this.setState(prevState => ({
-      tasks: prevState.tasks.map(
-        singleTask => (singleTask.id === task.id ? Object.assign(singleTask, task) : singleTask)
-      ),
+    this.setState({
+    // this.setState(prevState => ({
+    //   tasks: prevState.tasks.map(
+    //     singleTask => (singleTask.id === task.id ? Object.assign(singleTask, task) : singleTask)
+    //   ),
       currentTask: null
-    }))
+    })
     this.handlePatch(task)
   }
 
 
   handlePatch = (task) => {
-    fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
-      method: "PATCH",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({
-        "title": `${task.title}`,
-        "description": `${task.description}`,
-        "date_completed": `${task.date_completed}`
-      })
-    }).then(res => console.log("Updated the task."))
+    // fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+    //   method: "PATCH",
+    //   headers: {"Content-Type": "application/json"},
+    //   body: JSON.stringify({
+    //     "title": `${task.title}`,
+    //     "description": `${task.description}`,
+    //     "date_completed": `${task.date_completed}`
+    //   })
+    // }).then(res => console.log("Updated the task."))
+    dispatchEditTask(task)
   }
 
 
@@ -113,13 +115,14 @@ class App extends Component {
 
 
   handleDeleteTask = (task) => {
-    fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
-      method: "DELETE",
-      headers: {"Content-Type": "application/json"}
-    }).then(res => console.log("Deleted the task."))
-    this.setState({
-      tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
-    })
+    // fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+    //   method: "DELETE",
+    //   headers: {"Content-Type": "application/json"}
+    // }).then(res => console.log("Deleted the task."))
+    // this.setState({
+    //   tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
+    // })
+    dispatchDeleteTask(task)
   }
 
 

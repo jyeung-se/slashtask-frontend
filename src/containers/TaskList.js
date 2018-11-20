@@ -18,7 +18,7 @@ class TaskList extends Component {
   }
 
   render () {
-    console.log("TaskList props", this.props)
+    // console.log("TaskList props", this.props)
     return (
       <table className="ui celled striped padded table">
         <tbody>
@@ -59,11 +59,7 @@ function mapStateToProps(state) {
 
   // Anything returned from this function will end up as props in the TaskList container
 function mapDispatchToProps(dispatch) {
-  // Whenever selectTask is called, the result should be passed to all of our reducers
   return bindActionCreators({ dispatchNewTask: dispatchNewTask}, dispatch)
 }
 
-// Promote TaskList from a component to a container - it needs to know about this new
-// dispatch method, selectTask. Make it available as a prop.
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList)
-// export default TaskList

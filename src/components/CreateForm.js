@@ -12,8 +12,7 @@ class CreateForm extends Component {
         first_name: "Jack",
         last_name: "Yeung",
         city: "New York",
-        state: "NY",
-        password: "jackjack"
+        state: "NY"
       }
     }
   }

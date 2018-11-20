@@ -8,19 +8,19 @@ class FrontPage extends Component {
     return (
       <Fragment>
         <a href="/signup">
-          <button class='ui animated button' role='button'>
-            <div class='visible content'>Sign Up</div>
-            <div class='hidden content'>
-              <i aria-hidden='true' class='edit icon' />
+          <button className='ui animated button'>
+            <div className='visible content'>Sign Up</div>
+            <div className='hidden content'>
+              <i aria-hidden='true' className='edit icon' />
             </div>
           </button>
         </a>
         {"  | |  "}
         <a href="/login">
-          <button class='ui animated button' role='button'>
-            <div class='visible content'>Login</div>
-            <div class='hidden content'>
-              <i aria-hidden='true' class='user icon' />
+          <button className='ui animated button'>
+            <div className='visible content'>Login</div>
+            <div className='hidden content'>
+              <i aria-hidden='true' className='user icon' />
             </div>
           </button>
         </a>
@@ -33,10 +33,10 @@ class FrontPage extends Component {
             </header>
           </div>
           <a href="/tasks">
-            <button class='ui animated button' role='button'>
-              <div class='visible content'>View my Tasks</div>
-              <div class='hidden content'>
-                <i aria-hidden='true' class='tasks icon' />
+            <button className='ui animated button'>
+              <div className='visible content'>View my Tasks</div>
+              <div className='hidden content'>
+                <i aria-hidden='true' className='tasks icon' />
               </div>
             </button>
           </a>
