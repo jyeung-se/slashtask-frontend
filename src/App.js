@@ -3,6 +3,7 @@ import './App.css';
 // import ImgSlider from './components/ImgSlider.js'
 // import CarouselSlider from './components/CarouselSlider.js'
 import FrontPage from './components/FrontPage'
+import SignUpPage from './components/SignUpPage'
 import LoginPage from './components/LoginPage'
 import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
@@ -137,6 +138,11 @@ class App extends Component {
         <FrontPage user={this.props.user} />
       </div>
 
+    const signUpPage =
+      <div>
+        <SignUpPage user={this.props.user} />
+      </div>
+
     const loginPage =
       <div>
         <LoginPage user={this.props.user} />
@@ -168,6 +174,7 @@ class App extends Component {
       <Router>
         <div className="ui raised segment">
           <Route exact path="/" component={() => frontPage} />
+          <Route exact path="/signup" component={() => signUpPage} />
           <Route exact path="/login" component={() => loginPage} />
           <Route exact path="/newtask" render={(renderprops) => <CreateForm handleNewTaskSubmit={this.handleNewTaskSubmit} {...renderprops} />} />
           <Route exact path="/tasks" component={() => taskList} />

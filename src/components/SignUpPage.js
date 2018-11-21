@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react'
 
-class LoginPage extends Component {
+class SignUpPage extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      existingUser: {
+      newUser: {
         user_name: '',
         password: ''
       }
@@ -16,9 +16,9 @@ class LoginPage extends Component {
   updateLoginInputs = (event) => {
     this.setState({
       ...this.state,
-      existingUser:
+      newUser:
       {
-        ...this.state.existingUser,   // prevents overwriting other keys (if any) in the existingUser state not listed below
+        ...this.state.newUser,   // prevents overwriting other keys (if any) in the newUser state not listed below
         [event.target.name]: event.target.value   // this way requires you add 'name' to the input fields in your Form
       }
     // }, ()=>console.log(this.state))
@@ -37,7 +37,7 @@ class LoginPage extends Component {
       <Fragment>
         <br/>
         <a href="/"><button className="ui button">Return to Front Page</button></a>
-        <h1>Welcome back! Please login below.</h1>
+        <h1>Welcome! Please register for SlashTask below.</h1>
         <form
           className="ui form center aligned sixteen wide column"
           onSubmit={this.handleUpdate}
@@ -49,7 +49,7 @@ class LoginPage extends Component {
                 type="text"
                 name="user_name"
                 placeholder="User Name"
-                value={this.state.existingUser.user_name}
+                value={this.state.newUser.user_name}
                 onChange={this.updateLoginInputs}
               />
             </div>
@@ -59,12 +59,12 @@ class LoginPage extends Component {
                 type="password"
                 name="password"
                 placeholder="Password"
-                value={this.state.existingUser.password}
+                value={this.state.newUser.password}
                 onChange={this.updateLoginInputs}
               />
             </div>
             <button className="ui button" type="submit" value="Submit">
-              Login
+              Register
             </button>
           </div>
         </form>
@@ -73,4 +73,4 @@ class LoginPage extends Component {
   }
   }
 
-export default LoginPage
+export default SignUpPage
