@@ -9,7 +9,7 @@ import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
-import { dispatchAllTasks, dispatchNewTask, dispatchEditTask, dispatchDeleteTask, dispatchSlashTask } from './actions/index'
+import { fetchTasks, dispatchNewTask, dispatchEditTask, dispatchDeleteTask, dispatchSlashTask } from './actions/index'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -38,13 +38,7 @@ class App extends Component {
   componentDidMount() {
     fetch('http://localhost:3000/api/v1/tasks')
     .then(res => res.json())
-    .then(task => dispatchAllTasks(task))
-
-    // fetch('http://localhost:3000/api/v1/slashed_tasks')
-    // .then(res => res.json())
-    // .then(slashedTasksData => this.setState({
-    //   slashedTasks: slashedTasksData
-    // }))
+    .then(task => fetchTasks(task))
   }
 
 
@@ -131,7 +125,6 @@ class App extends Component {
   render(props) {
     // console.log('this.state.tasks are: ', this.state.tasks)
   // console.log('props are: ', this.props)
-  console.log('slashed tasks are', this.state.tasks.filter((task) => task.slashed === true))
 
     const frontPage =
       <div>

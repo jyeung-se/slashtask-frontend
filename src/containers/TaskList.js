@@ -8,7 +8,8 @@ import { bindActionCreators } from 'redux'
 class TaskList extends Component {
 
   mappedTasks = () => {
-    console.log(this.props.tasks);
+    console.log('non-slashed tasks: ', this.props.tasks.filter((task) => task.slashed === false))
+
     return this.props.tasks.map((task) => <Task task={task}
       key={task.id}
       handleEditTask={this.props.handleEditTask}
@@ -53,7 +54,7 @@ class TaskList extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside TaskList
   return {
-    tasks: state.tasks
+    tasks: state.tasks.filter((task) => task.slashed === false)
   }
 }
 

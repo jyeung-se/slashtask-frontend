@@ -8,7 +8,11 @@ import { bindActionCreators } from 'redux'
 class SlashedTaskList extends Component {
 
   mappedSlashedTasks = () => {
-    return this.props.slashedTasks.map((task, index) => <SlashedTask
+    // this.props.slashedTasks here are already filtered
+    // for only slashed tasks (true) via filter()
+    // in the mapStateToProps() at the very bottom
+    return this.props.slashedTasks.sort((a, b) => a.updated_at- b.updated_at)
+    .map((task, index) => <SlashedTask
       task={task}
       key={index}
       handleSlashTask={this.props.handleSlashTask} />
@@ -46,7 +50,10 @@ class SlashedTaskList extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside TaskList
   return {
-    slashedTasks: state.tasks.filter((task) => task.slashed === true)
+    slashedTasks: state.tasks
+    .filter((task) => task.slashed === true)
+    .sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at))
+    // .sort to sort by timestamp instead of ID by default
   }
 }
 

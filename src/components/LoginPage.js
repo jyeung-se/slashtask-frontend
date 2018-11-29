@@ -1,4 +1,9 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { login } from '../reducers/reducer_users'
+
+// import { userActions } from '../actions/user_actions'
+
 
 class LoginPage extends Component {
   constructor(props) {
@@ -7,7 +12,8 @@ class LoginPage extends Component {
     this.state = {
       existingUser: {
         user_name: '',
-        password: ''
+        password: '',
+        logged_in: false
       }
     }
   }
@@ -26,13 +32,26 @@ class LoginPage extends Component {
   }
 
 
-  handleUpdate = (event) => {
+  handleLogin = (event) => {
     event.preventDefault()
-    this.props.handleLogin(this.props.user)
+
+    this.props.login(this.state.existingUser.user_name, this.state.existingUser.password);
+    console.log(this.state);
+    // debugger
+    this.setState({
+      existingUser: {
+        user_name: this.state.existingUser.user_name,
+        password: this.state.existingUser.password,
+        logged_in: true
+      }
+    })
+    // debugger
   }
 
 
   render() {
+    console.log("state is", this.state)
+
     return (
       <Fragment>
         <br/>
@@ -40,7 +59,7 @@ class LoginPage extends Component {
         <h1>Welcome back! Please login below.</h1>
         <form
           className="ui form center aligned sixteen wide column"
-          onSubmit={this.handleUpdate}
+          onSubmit={this.handleLogin}
         >
           <div className="inline fields">
             <div className="eight wide field">
@@ -71,6 +90,22 @@ class LoginPage extends Component {
       </Fragment>
     )
   }
-  }
+}
 
-export default LoginPage
+  const mapStateToProps = (state) => {
+  return {
+    isLoginPending: state.isLoginPending,
+    isLoginSuccess: state.isLoginSuccess,
+    loginError: state.loginError
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (user_name, password) => dispatch(login(user_name, password))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+
+// export default LoginPage

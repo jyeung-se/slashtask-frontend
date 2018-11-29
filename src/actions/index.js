@@ -1,9 +1,9 @@
-
+import { FETCH_TASKS, CREATE_TASK } from './types'
 import store from '../store'
 
-export const dispatchAllTasks = (task) => {
+export const fetchTasks = (task) => {
   store.dispatch({
-    type: 'SHOW_ALL_TASKS',
+    type: FETCH_TASKS,
     payload: task
   })
 }
@@ -23,7 +23,7 @@ export const dispatchNewTask = (user_id, task) => {
     })
   // }).then(res => console.log("Created a new task."))
   }).then(res => res.json())
-  .then(created_task => store.dispatch({type: 'CREATE_TASK', task: created_task}))
+  .then(created_task => store.dispatch({type: CREATE_TASK, task: created_task}))
 }
 
 export const dispatchEditTask = (task) => {

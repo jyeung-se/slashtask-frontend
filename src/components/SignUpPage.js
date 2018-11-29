@@ -13,7 +13,7 @@ class SignUpPage extends Component {
   }
 
 
-  updateLoginInputs = (event) => {
+  updateSignUpInputs = (event) => {
     this.setState({
       ...this.state,
       newUser:
@@ -28,7 +28,7 @@ class SignUpPage extends Component {
 
   handleUpdate = (event) => {
     event.preventDefault()
-    this.props.handleLogin(this.props.user)
+    this.props.handleSignUp(this.props.user)
   }
 
 
@@ -50,7 +50,7 @@ class SignUpPage extends Component {
                 name="user_name"
                 placeholder="User Name"
                 value={this.state.newUser.user_name}
-                onChange={this.updateLoginInputs}
+                onChange={this.updateSignUpInputs}
               />
             </div>
             <div className="eight wide field">
@@ -60,7 +60,7 @@ class SignUpPage extends Component {
                 name="password"
                 placeholder="Password"
                 value={this.state.newUser.password}
-                onChange={this.updateLoginInputs}
+                onChange={this.updateSignUpInputs}
               />
             </div>
             <button className="ui button" type="submit" value="Submit">
