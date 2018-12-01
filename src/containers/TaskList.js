@@ -61,9 +61,4 @@ function mapStateToProps(state) {
   }
 }
 
-  // Anything returned from this function will end up as props in the TaskList container
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ createTask: createTask}, dispatch)
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskList)
+export default connect(mapStateToProps)(TaskList)
