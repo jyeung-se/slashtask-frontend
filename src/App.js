@@ -9,7 +9,7 @@ import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
-import { fetchTasks, createTask, dispatchEditTask, dispatchDeleteTask, dispatchSlashTask } from './actions/task_actions'
+import { fetchTasks, createTask, EditTask, DeleteTask, SlashTask } from './actions/task_actions'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -84,7 +84,7 @@ class App extends Component {
     //     "date_completed": `${task.date_completed}`
     //   })
     // }).then(res => console.log("Updated the task."))
-    dispatchEditTask(task)
+    EditTask(task)
   }
 
 
@@ -106,7 +106,7 @@ class App extends Component {
     //   slashedTasks: [...this.state.slashedTasks, task],
     //   tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
     // })
-    dispatchSlashTask(task)
+    SlashTask(task)
   }
 
 
@@ -118,7 +118,7 @@ class App extends Component {
     // this.setState({
     //   tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
     // })
-    dispatchDeleteTask(task)
+    DeleteTask(task)
   }
 
 

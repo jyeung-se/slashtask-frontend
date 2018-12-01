@@ -1,77 +1,34 @@
-const SET_LOGIN_PENDING = 'SET_LOGIN_PENDING'
-const SET_LOGIN_SUCCESS = 'SET_LOGIN_SUCCESS'
-const SET_LOGIN_ERROR = 'SET_LOGIN_ERROR'
+// import
 
-export function login(user_name, password) {
-  return dispatch => {
-    dispatch(setLoginPending(true))
-    dispatch(setLoginSuccess(false))
-    dispatch(setLoginError(null))
-
-    callLoginApi(user_name, password, error => {
-      dispatch(setLoginPending(false))
-      if (!error) {
-        dispatch(setLoginSuccess(true))
-      } else {
-        dispatch(setLoginError(error))
-      }
-    })
-  }
+const initialState = {
+  user: null,
+  logged_in: false,
+  failedLogin: false,
+  error: null
 }
 
-function setLoginPending(isLoginPending) {
-  return {
-    type: SET_LOGIN_PENDING,
-    isLoginPending
-  }
-}
 
-function setLoginSuccess(isLoginSuccess) {
-  return {
-    type: SET_LOGIN_SUCCESS,
-    isLoginSuccess
-  }
-}
-
-function setLoginError(loginError) {
-  return {
-    type: SET_LOGIN_ERROR,
-    loginError
-  }
-}
-
-function callLoginApi(user_name, password, callback) {
-  setTimeout(() => {
-    if (user_name === 'admin' && password === 'admin') {
-      return callback(console.log("hello, it's me."))
-    } else {
-      return callback(new Error('Invalid user_name and password'))
-    }
-  }, 1000)
-}
-
-export default function userReducer(state = {
-  isLoginSuccess: false,
-  isLoginPending: false,
-  loginError: null
-}, action) {
+const usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_LOGIN_PENDING:
-      return Object.assign({}, state, {
-        isLoginPending: action.isLoginPending
-      })
-
-    case SET_LOGIN_SUCCESS:
-      return Object.assign({}, state, {
-        isLoginSuccess: action.isLoginSuccess
-      })
-
-    case SET_LOGIN_ERROR:
-      return Object.assign({}, state, {
-        loginError: action.loginError
-      })
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        user: action.payload,
+        logged_in: true
+      }
+    case FAILED_LOGIN:
+      return {
+        ...state,
+        failedLogin: true,
+        error: action.payload
+      }
+    case LOG_OUT:
+      return state
 
     default:
       return state
   }
 }
+
+
+export default usersReducer

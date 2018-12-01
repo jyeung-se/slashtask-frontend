@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../reducers/reducer_users'
-
-// import { userActions } from '../actions/user_actions'
+import { login } from '../actions/user_actions'
 
 
 class LoginPage extends Component {

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import SlashedTask from '../components/SlashedTask'
 import { connect } from 'react-redux'
-import { createTask } from '../actions/task_actions'
-import { bindActionCreators } from 'redux'
 
 
 class SlashedTaskList extends Component {

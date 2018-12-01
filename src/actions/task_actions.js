@@ -1,4 +1,4 @@
-import { FETCH_TASKS, CREATE_TASK } from './types'
+import { FETCH_TASKS, CREATE_TASK, EDIT_TASK, SLASH_TASK, DELETE_TASK } from './types'
 import store from '../store'
 
 export const fetchTasks = (task) => {
@@ -26,7 +26,7 @@ export const createTask = (user_id, task) => {
   .then(created_task => store.dispatch({type: CREATE_TASK, task: created_task}))
 }
 
-export const dispatchEditTask = (task) => {
+export const EditTask = (task) => {
   fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
     method: "PATCH",
     headers: {"Content-Type": "application/json"},
@@ -36,10 +36,10 @@ export const dispatchEditTask = (task) => {
     })
   // }).then(res => console.log("Updated the task."))
   }).then(res => res.json())
-  .then(edited_task => store.dispatch({type: 'EDIT_TASK', task: edited_task}))
+  .then(edited_task => store.dispatch({type: EDIT_TASK, task: edited_task}))
 }
 
-export const dispatchSlashTask = (task) => {
+export const SlashTask = (task) => {
   fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
     method: "PATCH",
     headers: {"Content-Type": "application/json"},
@@ -48,14 +48,14 @@ export const dispatchSlashTask = (task) => {
     })
   // }).then(res => console.log("The selected task has been created in the slashedTaskList."))
   }).then(res => res.json())
-  .then(slashed_task => store.dispatch({type: 'SLASH_TASK', task: slashed_task}))
+  .then(slashed_task => store.dispatch({type: SLASH_TASK, task: slashed_task}))
 }
 
-export const dispatchDeleteTask = (task) => {
+export const DeleteTask = (task) => {
   fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
     method: "DELETE",
     headers: {"Content-Type": "application/json"}
   // }).then(res => console.log("Deleted the task."))
   }).then(res => res.json())
-  .then(deleted_task => store.dispatch({type: 'DELETE_TASK', task: deleted_task}))
+  .then(deleted_task => store.dispatch({type: DELETE_TASK, task: deleted_task}))
 }
