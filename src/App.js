@@ -9,7 +9,7 @@ import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
-import { fetchTasks, dispatchNewTask, dispatchEditTask, dispatchDeleteTask, dispatchSlashTask } from './actions/index'
+import { fetchTasks, dispatchNewTask, dispatchEditTask, dispatchDeleteTask, dispatchSlashTask } from './actions/post_actions'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 

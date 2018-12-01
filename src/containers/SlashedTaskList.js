@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import SlashedTask from '../components/SlashedTask.js'
+import SlashedTask from '../components/SlashedTask'
 import { connect } from 'react-redux'
-import { dispatchNewTask } from '../actions/index.js'
+import { dispatchNewTask } from '../actions/post_actions'
 import { bindActionCreators } from 'redux'
 
 
