@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+
 class CreateForm extends Component {
   constructor(props) {
     super(props)
@@ -6,14 +7,14 @@ class CreateForm extends Component {
     this.state = {
       // tasks: this.props.tasks,
       newTask: {},
-      user: {
-        id: 1,
-        user_name: "AerosDawson",
-        first_name: "Jack",
-        last_name: "Yeung",
-        city: "New York",
-        state: "NY"
-      }
+      // user: {
+      //   id: 1,
+      //   user_name: "AerosDawson",
+      //   first_name: "Jack",
+      //   last_name: "Yeung",
+      //   city: "New York",
+      //   state: "NY"
+      // }
     }
   }
 

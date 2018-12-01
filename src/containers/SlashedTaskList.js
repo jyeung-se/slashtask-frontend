@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SlashedTask from '../components/SlashedTask'
 import { connect } from 'react-redux'
-import { dispatchNewTask } from '../actions/post_actions'
+import { createTask } from '../actions/task_actions'
 import { bindActionCreators } from 'redux'
 
 
@@ -50,16 +50,16 @@ class SlashedTaskList extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside TaskList
   return {
-    slashedTasks: state.tasks
+    slashedTasks: state.tasks.tasks
     .filter((task) => task.slashed === true)
-    .sort((a, b) => new Date(a.updated_at) - new Date(b.updated_at))
-    // .sort to sort by timestamp instead of ID by default
+    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+    // .sort to sort by most recent completed task instead of ID by default
   }
 }
 
   // Anything returned from this function will end up as props in the TaskList container
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ dispatchNewTask: dispatchNewTask}, dispatch)
+  return bindActionCreators({ createTask: createTask}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SlashedTaskList)

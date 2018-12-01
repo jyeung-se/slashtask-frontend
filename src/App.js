@@ -9,7 +9,7 @@ import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
-import { fetchTasks, dispatchNewTask, dispatchEditTask, dispatchDeleteTask, dispatchSlashTask } from './actions/post_actions'
+import { fetchTasks, createTask, dispatchEditTask, dispatchDeleteTask, dispatchSlashTask } from './actions/task_actions'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -51,7 +51,7 @@ class App extends Component {
 
 
   handleCreate = (task) => {
-    dispatchNewTask(this.state.user.id, task)
+    createTask(this.state.user.id, task)
   }
 
   handleEditTask = (task) => {

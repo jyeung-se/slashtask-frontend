@@ -8,7 +8,7 @@ export const fetchTasks = (task) => {
   })
 }
 
-export const dispatchNewTask = (user_id, task) => {
+export const createTask = (user_id, task) => {
   fetch(`http://localhost:3000/api/v1/tasks/`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},

@@ -2,13 +2,14 @@ import { FETCH_TASKS, CREATE_TASK } from '../actions/types'
 
   const intialState = {
     tasks: [],
-    slashedTasks: []
+    // slashedTasks: []
   }
 
-  const taskReducer = (state = intialState, action) => {
+  const tasksReducer = (state = intialState, action) => {
     switch (action.type) {
       case FETCH_TASKS:
         return {
+          ...state,
           tasks: action.payload
         }
 
@@ -32,8 +33,8 @@ import { FETCH_TASKS, CREATE_TASK } from '../actions/types'
           ...state,
           // tasks: action.payload
           tasks: state.tasks.filter((task) => task.id !== action.task.id),
-          slashedTasks: [state.slashedTasks, action.task]
-          .sort((a,b) => a.created_at - b.created_at)
+          // slashedTasks: [state.slashedTasks, action.task]
+          // .sort((a,b) => a.created_at - b.created_at)
         }
 
       case 'DELETE_TASK':
@@ -47,4 +48,4 @@ import { FETCH_TASKS, CREATE_TASK } from '../actions/types'
   }
 
 
-export default taskReducer
+export default tasksReducer
