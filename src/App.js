@@ -9,8 +9,8 @@ import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
-import { fetchTasks, createTask, EditTask, DeleteTask, SlashTask } from './actions/task_actions'
-
+import { fetchTasks, createTask, editTask, deleteTask, slashTask } from './actions/task_actions'
+import { createUser } from './actions/user_actions'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -23,6 +23,7 @@ class App extends Component {
       tasks: [],
       currentTask: null,
       slashedTasks: [],
+      users: [],
       user: {
         id: 1,
         user_name: "AerosDawson",
@@ -64,10 +65,6 @@ class App extends Component {
 
   handleEditSubmit = (task) => {
     this.setState({
-    // this.setState(prevState => ({
-    //   tasks: prevState.tasks.map(
-    //     singleTask => (singleTask.id === task.id ? Object.assign(singleTask, task) : singleTask)
-    //   ),
       currentTask: null
     })
     this.handlePatch(task)
@@ -75,50 +72,17 @@ class App extends Component {
 
 
   handlePatch = (task) => {
-    // fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
-    //   method: "PATCH",
-    //   headers: {"Content-Type": "application/json"},
-    //   body: JSON.stringify({
-    //     "title": `${task.title}`,
-    //     "description": `${task.description}`,
-    //     "date_completed": `${task.date_completed}`
-    //   })
-    // }).then(res => console.log("Updated the task."))
-    EditTask(task)
+    editTask(task)
   }
 
 
   handleSlashTask = (task) => {
-    // fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
-    //   method: "DELETE",
-    //   headers: {"Content-Type": "application/json"}
-    // }).then(res => console.log("The selected task has been slashed."))
-    // fetch(`http://localhost:3000/api/v1/slashed_tasks/`, {
-    //   method: "POST",
-    //   headers: {"Content-Type": "application/json"},
-    //   body: JSON.stringify({
-    //     "title": `${task.title}`,
-    //     "description": `${task.description}`,
-    //     "date_completed": `${task.created_at}`
-    //   })
-    // }).then(res => console.log("The selected task has been created in the slashedTaskList."))
-    // this.setState({
-    //   slashedTasks: [...this.state.slashedTasks, task],
-    //   tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
-    // })
-    SlashTask(task)
+    slashTask(task)
   }
 
 
   handleDeleteTask = (task) => {
-    // fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
-    //   method: "DELETE",
-    //   headers: {"Content-Type": "application/json"}
-    // }).then(res => console.log("Deleted the task."))
-    // this.setState({
-    //   tasks: this.state.tasks.filter(eachTask => eachTask.id !== task.id)
-    // })
-    DeleteTask(task)
+    deleteTask(task)
   }
 
 
@@ -133,7 +97,7 @@ class App extends Component {
 
     const signUpPage =
       <div>
-        <SignUpPage user={this.props.user} />
+        <SignUpPage user={this.props.user} registerUser={createUser} />
       </div>
 
     const loginPage =
@@ -143,13 +107,21 @@ class App extends Component {
 
     const taskList =
       <div>
-        {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks} currentTask={this.state.currentTask} updateExistingTaskInputs={this.updateExistingTaskInputs} handleEditSubmit={this.handleEditSubmit} />}
+        {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks}
+          currentTask={this.state.currentTask}
+          updateExistingTaskInputs={this.updateExistingTaskInputs}
+          handleEditSubmit={this.handleEditSubmit}
+        />}
         <h2>Hi {this.state.user.first_name}, this is your up-to-date task list.</h2>
         <br/>
         <a href="/newtask"><button className="ui button left">Create a new task</button></a>
         {"  ~    ~  "}
         <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
-        <TaskList tasks={this.state.tasks} handleEditTask={this.handleEditTask} handleSlashTask={this.handleSlashTask} handleDeleteTask={this.handleDeleteTask} />
+        <TaskList tasks={this.state.tasks}
+          handleEditTask={this.handleEditTask}
+          handleSlashTask={this.handleSlashTask}
+          handleDeleteTask={this.handleDeleteTask}
+        />
       </div>
 
     const slashedTaskList =

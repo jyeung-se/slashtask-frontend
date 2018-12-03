@@ -6,8 +6,12 @@ class SignUpPage extends Component {
 
     this.state = {
       newUser: {
-        user_name: '',
-        password: ''
+        "user_name": '',
+        "password": '',
+        "first_name": 'Nax',
+        "last_name": 'Nelson',
+        "city": 'New York City',
+        "state": 'NY'
       }
     }
   }
@@ -26,9 +30,11 @@ class SignUpPage extends Component {
   }
 
 
-  handleUpdate = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault()
-    this.props.handleSignUp(this.props.user)
+    if (this.props.registerUser) {
+      this.props.registerUser(this.state.newUser)
+    }
   }
 
 
@@ -37,10 +43,10 @@ class SignUpPage extends Component {
       <Fragment>
         <br/>
         <a href="/"><button className="ui button">Return to Front Page</button></a>
-        <h1>Welcome! Please register for SlashTask below.</h1>
+        <h1>Welcome! Please register for slashTask below.</h1>
         <form
           className="ui form center aligned sixteen wide column"
-          onSubmit={this.handleUpdate}
+          onSubmit={this.handleSubmit}
         >
           <div className="inline fields">
             <div className="eight wide field">

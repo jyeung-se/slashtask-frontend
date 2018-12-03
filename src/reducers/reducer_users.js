@@ -1,7 +1,8 @@
-// import
+import { SET_CURRENT_USER, FAILED_LOGIN, LOG_OUT } from '../actions/types'
 
 const initialState = {
-  user: null,
+  users: []
+  currentUser: null,
   logged_in: false,
   failedLogin: false,
   error: null
@@ -10,6 +11,11 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
+    case CREATE_USER:
+      return {
+        ...state,
+        users: [...state.users, action.user] 
+      }
     case SET_CURRENT_USER:
       return {
         ...state,

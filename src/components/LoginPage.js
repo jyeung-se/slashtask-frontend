@@ -8,7 +8,7 @@ class LoginPage extends Component {
     super(props)
 
     this.state = {
-      existingUser: {
+      currentUser: {
         user_name: '',
         password: '',
         logged_in: false
@@ -20,9 +20,9 @@ class LoginPage extends Component {
   updateLoginInputs = (event) => {
     this.setState({
       ...this.state,
-      existingUser:
+      currentUser:
       {
-        ...this.state.existingUser,   // prevents overwriting other keys (if any) in the existingUser state not listed below
+        ...this.state.currentUser,   // prevents overwriting other keys (if any) in the currentUser state not listed below
         [event.target.name]: event.target.value   // this way requires you add 'name' to the input fields in your Form
       }
     // }, ()=>console.log(this.state))
@@ -33,13 +33,13 @@ class LoginPage extends Component {
   handleLogin = (event) => {
     event.preventDefault()
 
-    this.props.login(this.state.existingUser.user_name, this.state.existingUser.password);
+    this.props.login(this.state.currentUser.user_name, this.state.currentUser.password);
     console.log(this.state);
     // debugger
     this.setState({
-      existingUser: {
-        user_name: this.state.existingUser.user_name,
-        password: this.state.existingUser.password,
+      currentUser: {
+        user_name: this.state.currentUser.user_name,
+        password: this.state.currentUser.password,
         logged_in: true
       }
     })
@@ -66,7 +66,7 @@ class LoginPage extends Component {
                 type="text"
                 name="user_name"
                 placeholder="User Name"
-                value={this.state.existingUser.user_name}
+                value={this.state.currentUser.user_name}
                 onChange={this.updateLoginInputs}
               />
             </div>
@@ -76,7 +76,7 @@ class LoginPage extends Component {
                 type="password"
                 name="password"
                 placeholder="Password"
-                value={this.state.existingUser.password}
+                value={this.state.currentUser.password}
                 onChange={this.updateLoginInputs}
               />
             </div>
@@ -92,9 +92,11 @@ class LoginPage extends Component {
 
   const mapStateToProps = (state) => {
   return {
-    isLoginPending: state.isLoginPending,
-    isLoginSuccess: state.isLoginSuccess,
-    loginError: state.loginError
+    currentUser: state.currentUser
+    // currentUser: {
+    //   user_name: state.currentUser.user_name,
+    //   password: state.currentUser.password
+    // }
   }
 }
 

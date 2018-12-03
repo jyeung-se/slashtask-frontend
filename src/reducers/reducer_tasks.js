@@ -43,7 +43,8 @@ const tasksReducer = (state = initialState, action) => {
         tasks: state.tasks.filter((task) => task.id !== action.task.id)
       }
 
-    default: return state
+    default:
+      return state
   }
 }
 

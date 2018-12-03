@@ -26,7 +26,7 @@ export const createTask = (user_id, task) => {
   .then(created_task => store.dispatch({type: CREATE_TASK, task: created_task}))
 }
 
-export const EditTask = (task) => {
+export const editTask = (task) => {
   fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
     method: "PATCH",
     headers: {"Content-Type": "application/json"},
@@ -39,7 +39,7 @@ export const EditTask = (task) => {
   .then(edited_task => store.dispatch({type: EDIT_TASK, task: edited_task}))
 }
 
-export const SlashTask = (task) => {
+export const slashTask = (task) => {
   fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
     method: "PATCH",
     headers: {"Content-Type": "application/json"},
@@ -51,7 +51,7 @@ export const SlashTask = (task) => {
   .then(slashed_task => store.dispatch({type: SLASH_TASK, task: slashed_task}))
 }
 
-export const DeleteTask = (task) => {
+export const deleteTask = (task) => {
   fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
     method: "DELETE",
     headers: {"Content-Type": "application/json"}
