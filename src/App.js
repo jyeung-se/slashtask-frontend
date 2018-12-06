@@ -10,7 +10,8 @@ import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
 import { fetchTasks, createTask, editTask, deleteTask, slashTask } from './actions/task_actions'
-import { createUser } from './actions/user_actions'
+import { createUser, login } from './actions/user_actions'
+import { createTasklist } from './actions/tasklist_actions'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -26,7 +27,7 @@ class App extends Component {
       users: [],
       user: {
         id: 1,
-        user_name: "AerosDawson",
+        username: "AerosDawson",
         first_name: "Jack",
         last_name: "Yeung",
         city: "New York",
@@ -97,12 +98,12 @@ class App extends Component {
 
     const signUpPage =
       <div>
-        <SignUpPage user={this.props.user} registerUser={createUser} />
+        <SignUpPage user={this.props.user} createUser={createUser} createTasklist={createTasklist} />
       </div>
 
     const loginPage =
       <div>
-        <LoginPage user={this.props.user} />
+        <LoginPage user={this.props.user} login={login} />
       </div>
 
     const taskList =

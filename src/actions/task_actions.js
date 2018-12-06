@@ -13,13 +13,12 @@ export const createTask = (user_id, task) => {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      "title": `${task.title}`,
-      "description": `${task.description}`,
-      "date_posted": `${task.created_at}`,
-      "slashed": false,
-      "task_list_id": 1,
-      "date_completed": `${task.date_completed}`,
-      "user_id": `${user_id}`
+      title: task.title,
+      description: task.description,
+      date_posted: task.created_at,
+      slashed: false,
+      task_list_id: 1,
+      user_id: user_id
     })
   // }).then(res => console.log("Created a new task."))
   }).then(res => res.json())

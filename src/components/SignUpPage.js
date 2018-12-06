@@ -6,12 +6,16 @@ class SignUpPage extends Component {
 
     this.state = {
       newUser: {
-        "user_name": '',
-        "password": '',
-        "first_name": 'Nax',
-        "last_name": 'Nelson',
-        "city": 'New York City',
-        "state": 'NY'
+        username: '',
+        password: '',
+        first_name: '',
+        last_name: '',
+        city: '',
+        state: ''
+      },
+      tasklist: {
+        list_title: 'My Task List',
+        user_id: null
       }
     }
   }
@@ -32,9 +36,11 @@ class SignUpPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    if (this.props.registerUser) {
-      this.props.registerUser(this.state.newUser)
+    if (this.props.createUser && this.props.createTasklist) {
+      this.props.createUser(this.state.newUser)
+      this.props.createTasklist(this.state.tasklist)
     }
+    // to prevent breaking if register with an error
   }
 
 
@@ -43,31 +49,78 @@ class SignUpPage extends Component {
       <Fragment>
         <br/>
         <a href="/"><button className="ui button">Return to Front Page</button></a>
-        <h1>Welcome! Please register for slashTask below.</h1>
+        <h1>Welcome! Please register for SlashTask below.</h1>
+        <h4 className="ui dividing header">Sign Up Form Information</h4>
         <form
-          className="ui form center aligned sixteen wide column"
+          className="ui form"
           onSubmit={this.handleSubmit}
         >
-          <div className="inline fields">
-            <div className="eight wide field">
-              <input
-                id="user_name"
-                type="text"
-                name="user_name"
-                placeholder="User Name"
-                value={this.state.newUser.user_name}
-                onChange={this.updateSignUpInputs}
-              />
+          <div className="field">
+            <label>Login Information</label>
+            <div className="two fields">
+              <div className="three wide field">
+                <input
+                  id="username"
+                  type="text"
+                  name="username"
+                  placeholder="User Name"
+                  value={this.state.newUser.username}
+                  onChange={this.updateSignUpInputs}
+                />
+              </div>
+              <div className="three wide field">
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.newUser.password}
+                  onChange={this.updateSignUpInputs}
+                />
+              </div>
             </div>
-            <div className="eight wide field">
-              <input
-                id="password"
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.newUser.password}
-                onChange={this.updateSignUpInputs}
-              />
+            <label>Profile Information</label>
+            <div className="four fields">
+              <div className="three wide field">
+                <input
+                  id="first_name"
+                  type="text"
+                  name="first_name"
+                  placeholder="First Name"
+                  value={this.state.newUser.first_name}
+                  onChange={this.updateSignUpInputs}
+                />
+              </div>
+              <div className="three wide field">
+                <input
+                  id="last_name"
+                  type="text"
+                  name="last_name"
+                  placeholder="Last Name"
+                  value={this.state.newUser.last_name}
+                  onChange={this.updateSignUpInputs}
+                />
+              </div>
+              <div className="three wide field">
+                <input
+                  id="city"
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  value={this.state.newUser.city}
+                  onChange={this.updateSignUpInputs}
+                />
+              </div>
+              <div className="one wide field">
+                <input
+                  id="state"
+                  type="text"
+                  name="state"
+                  placeholder="State"
+                  value={this.state.newUser.state}
+                  onChange={this.updateSignUpInputs}
+                />
+              </div>
             </div>
             <button className="ui button" type="submit" value="Submit">
               Register

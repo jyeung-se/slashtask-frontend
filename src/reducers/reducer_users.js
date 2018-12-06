@@ -1,8 +1,9 @@
-import { SET_CURRENT_USER, FAILED_LOGIN, LOG_OUT } from '../actions/types'
+import { CREATE_USER, SET_CURRENT_USER, FAILED_LOGIN, LOG_OUT } from '../actions/types'
 
 const initialState = {
-  users: []
+  users: [],
   currentUser: null,
+  authenticatingUser: false,
   logged_in: false,
   failedLogin: false,
   error: null
@@ -14,13 +15,14 @@ const usersReducer = (state = initialState, action) => {
     case CREATE_USER:
       return {
         ...state,
-        users: [...state.users, action.user] 
+        users: [...state.users, action.user]
       }
     case SET_CURRENT_USER:
       return {
         ...state,
         user: action.payload,
-        logged_in: true
+        logged_in: true,
+        authenticatingUser: false
       }
     case FAILED_LOGIN:
       return {
@@ -29,7 +31,13 @@ const usersReducer = (state = initialState, action) => {
         error: action.payload
       }
     case LOG_OUT:
-      return state
+      return {
+        ...state,
+        currentUser: null,
+        authenticatingUser: false,
+        logged_in: false,
+        failedLogin: false,
+        error: false
 
     default:
       return state

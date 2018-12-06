@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { login } from '../actions/user_actions'
+// import { login } from '../actions/user_actions'
 
 
 class LoginPage extends Component {
@@ -9,9 +9,8 @@ class LoginPage extends Component {
 
     this.state = {
       currentUser: {
-        user_name: '',
-        password: '',
-        logged_in: false
+        username: '',
+        password: ''
       }
     }
   }
@@ -33,79 +32,75 @@ class LoginPage extends Component {
   handleLogin = (event) => {
     event.preventDefault()
 
-    this.props.login(this.state.currentUser.user_name, this.state.currentUser.password);
-    console.log(this.state);
-    // debugger
+    if (this.props.login) {
+      this.props.login(this.state.currentUser)
+    }
+
     this.setState({
       currentUser: {
-        user_name: this.state.currentUser.user_name,
-        password: this.state.currentUser.password,
-        logged_in: true
+        username: '',
+        password: ''
       }
     })
-    // debugger
   }
 
 
   render() {
-    console.log("state is", this.state)
+    console.log("login state is", this.state)
 
     return (
       <Fragment>
         <br/>
         <a href="/"><button className="ui button">Return to Front Page</button></a>
         <h1>Welcome back! Please login below.</h1>
+        <h4 className="ui dividing header"></h4>
         <form
-          className="ui form center aligned sixteen wide column"
+          className="ui form"
           onSubmit={this.handleLogin}
         >
-          <div className="inline fields">
-            <div className="eight wide field">
-              <input
-                id="user_name"
-                type="text"
-                name="user_name"
-                placeholder="User Name"
-                value={this.state.currentUser.user_name}
-                onChange={this.updateLoginInputs}
-              />
+          <div className="field">
+            <label>Login Information</label>
+            <div className="two fields">
+              <div className="three wide field">
+                <input
+                  id="username"
+                  type="text"
+                  name="username"
+                  placeholder="User Name"
+                  value={this.state.currentUser.username}
+                  onChange={this.updateLoginInputs}
+                />
+              </div>
+              <div className="three wide field">
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={this.state.currentUser.password}
+                  onChange={this.updateLoginInputs}
+                />
+              </div>
             </div>
-            <div className="eight wide field">
-              <input
-                id="password"
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={this.state.currentUser.password}
-                onChange={this.updateLoginInputs}
-              />
+              <button className="ui button" type="submit" value="Submit">
+                Login
+              </button>
             </div>
-            <button className="ui button" type="submit" value="Submit">
-              Login
-            </button>
-          </div>
-        </form>
-      </Fragment>
-    )
+          </form>
+        </Fragment>
+      )
+    }
   }
-}
+
 
   const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser
     // currentUser: {
-    //   user_name: state.currentUser.user_name,
+    //   username: state.currentUser.username,
     //   password: state.currentUser.password
     // }
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    login: (user_name, password) => dispatch(login(user_name, password))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
-
-// export default LoginPage
+export default connect(mapStateToProps)(LoginPage)

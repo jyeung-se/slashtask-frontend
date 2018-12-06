@@ -9,7 +9,7 @@ class CreateForm extends Component {
       newTask: {},
       // user: {
       //   id: 1,
-      //   user_name: "AerosDawson",
+      //   username: "AerosDawson",
       //   first_name: "Jack",
       //   last_name: "Yeung",
       //   city: "New York",
