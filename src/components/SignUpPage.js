@@ -40,6 +40,7 @@ class SignUpPage extends Component {
     if (this.props.createUser && this.props.createTasklist) {
       this.props.createUser(this.state.newUser)
       this.props.createTasklist(this.state.tasklist)
+      return <Redirect to='http://localhost:3001/tasks' />
     }
     // to prevent breaking if register with an error
   }
@@ -48,7 +49,7 @@ class SignUpPage extends Component {
   render() {
 
     if (this.props.user) {
-      return <Redirect to={'http://localhost:3001/tasks'} />
+      return <Redirect to='http://localhost:3001/tasks' />
     } else {
       return (
         <Fragment>
