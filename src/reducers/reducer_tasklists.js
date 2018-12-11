@@ -1,7 +1,8 @@
-import { CREATE_TASKLIST } from '../actions/types'
+import { CREATE_TASKLIST, SET_CURRENT_TASKLIST } from '../actions/types'
 
 const initialState = {
-  tasklists: []
+  tasklists: [],
+  currentTasklist: null
 }
 
 
@@ -10,9 +11,14 @@ const tasklistsReducer = (state = initialState, action) => {
     case CREATE_TASKLIST:
       return {
         ...state,
-        users: [...state.tasklists, action.tasklist]
+        tasklists: [...state.tasklists, action.tasklist]
+        // users: [...state.tasklists, action.tasklist]
       }
-
+    case SET_CURRENT_TASKLIST:
+      return {
+        ...state,
+        currentTasklist: action.payload
+      }
     default:
       return state
   }

@@ -46,14 +46,14 @@ class LoginPage extends Component {
 
 
   render() {
-    console.log("login state is", this.state)
+    // console.log("login state is", this.state)
 
     return (
       <Fragment>
         <br/>
         <a href="/"><button className="ui button">Return to Front Page</button></a>
         <h1>Welcome back! Please login below.</h1>
-        <h4 className="ui dividing header"></h4>
+        {/* <h4 className="ui dividing header"></h4> */}
         <form
           className="ui form"
           onSubmit={this.handleLogin}

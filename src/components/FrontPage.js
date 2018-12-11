@@ -27,7 +27,7 @@ class FrontPage extends Component {
         <div className="ui raised segment">
           <div className="ui center aligned segment violet inverted">
             <header className="App-header">
-              <font size="7">Welcome to slashTask</font>
+              <font size="7">Welcome to SlashTask</font>
             <br/>
               <h1>Slash Off One Task at a Time</h1>
             </header>

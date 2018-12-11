@@ -30,6 +30,7 @@ import store from '../store'
     })
     .then(json => {
       localStorage.setItem('jwt', json.jwt)
+      store.dispatch({type: CREATE_USER, user: json.user})
       store.dispatch({type: SET_CURRENT_USER, user: json.user})
     })
     .catch(response => response.json().then(json => store.dispatch({type: FAILED_LOGIN, payload: json.errors})))
@@ -41,7 +42,8 @@ import store from '../store'
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Accept: "application/json"
+        Accept: "application/json",
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`
       },
       body: JSON.stringify({
         user: {
@@ -70,7 +72,7 @@ import store from '../store'
     payload: userInfo
   })
 
-
+  // Gets current user
   export const fetchCurrentUser = () => {
     fetch("http://localhost:3000/api/v1/profile", {
       method: 'GET',
@@ -80,4 +82,14 @@ import store from '../store'
     })
     .then(response => response.json())
     .then((json) => store.dispatch(setCurrentUser(json.user)))
+  }
+
+  export const failedLogin = (errorMsg) => ({
+    type: FAILED_LOGIN,
+    payload: errorMsg
+  })
+
+  export const logoutUser = () => {
+    localStorage.clear()
+    store.dispatch({type: LOG_OUT})
   }

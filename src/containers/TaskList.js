@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import Task from '../components/Task'
 import { connect } from 'react-redux'
+import withAuth from '../hocs/withAuth'
 
 
 class TaskList extends Component {
 
   mappedTasks = () => {
-    console.log('non-slashed tasks: ', this.props.tasks.filter((task) => task.slashed === false))
+    // console.log('non-slashed tasks: ', this.props.tasks.filter((task) => task.slashed === false))
 
     return this.props.tasks.map((task) => <Task task={task}
       key={task.id}
@@ -51,12 +52,14 @@ class TaskList extends Component {
 
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside TaskList
-  return {
+  console.log("app state", state)
+return {
     tasks: state.tasks.tasks
     .filter((task) => task.slashed === false)
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
     // .sort to sort by newest task created instead of ID by default
   }
 }
+
 
 export default connect(mapStateToProps)(TaskList)

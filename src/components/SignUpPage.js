@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Redirect } from 'react-router'
 
 class SignUpPage extends Component {
   constructor(props) {
@@ -45,91 +46,96 @@ class SignUpPage extends Component {
 
 
   render() {
-    return (
-      <Fragment>
-        <br/>
-        <a href="/"><button className="ui button">Return to Front Page</button></a>
-        <h1>Welcome! Please register for SlashTask below.</h1>
-        <h4 className="ui dividing header">Sign Up Form Information</h4>
-        <form
-          className="ui form"
-          onSubmit={this.handleSubmit}
-        >
-          <div className="field">
-            <label>Login Information</label>
-            <div className="two fields">
-              <div className="three wide field">
-                <input
-                  id="username"
-                  type="text"
-                  name="username"
-                  placeholder="User Name"
-                  value={this.state.newUser.username}
-                  onChange={this.updateSignUpInputs}
-                />
+
+    if (this.props.user) {
+      return <Redirect to={'http://localhost:3001/tasks'} />
+    } else {
+      return (
+        <Fragment>
+          <br/>
+          <a href="/"><button className="ui button">Return to Front Page</button></a>
+          <h1>Welcome! Please register for SlashTask below.</h1>
+          <h4 className="ui dividing header">Sign Up Form Information</h4>
+          <form
+            className="ui form"
+            onSubmit={this.handleSubmit}
+          >
+            <div className="field">
+              <label>Login Information</label>
+              <div className="two fields">
+                <div className="three wide field">
+                  <input
+                    id="username"
+                    type="text"
+                    name="username"
+                    placeholder="User Name"
+                    value={this.state.newUser.username}
+                    onChange={this.updateSignUpInputs}
+                  />
+                </div>
+                <div className="three wide field">
+                  <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={this.state.newUser.password}
+                    onChange={this.updateSignUpInputs}
+                  />
+                </div>
               </div>
-              <div className="three wide field">
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.newUser.password}
-                  onChange={this.updateSignUpInputs}
-                />
+              <label>Profile Information</label>
+              <div className="four fields">
+                <div className="three wide field">
+                  <input
+                    id="first_name"
+                    type="text"
+                    name="first_name"
+                    placeholder="First Name"
+                    value={this.state.newUser.first_name}
+                    onChange={this.updateSignUpInputs}
+                  />
+                </div>
+                <div className="three wide field">
+                  <input
+                    id="last_name"
+                    type="text"
+                    name="last_name"
+                    placeholder="Last Name"
+                    value={this.state.newUser.last_name}
+                    onChange={this.updateSignUpInputs}
+                  />
+                </div>
+                <div className="three wide field">
+                  <input
+                    id="city"
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                    value={this.state.newUser.city}
+                    onChange={this.updateSignUpInputs}
+                  />
+                </div>
+                <div className="one wide field">
+                  <input
+                    id="state"
+                    type="text"
+                    name="state"
+                    placeholder="State"
+                    value={this.state.newUser.state}
+                    onChange={this.updateSignUpInputs}
+                  />
+                </div>
               </div>
+              <button className="ui button" type="submit" value="Submit">
+                Register
+              </button>
             </div>
-            <label>Profile Information</label>
-            <div className="four fields">
-              <div className="three wide field">
-                <input
-                  id="first_name"
-                  type="text"
-                  name="first_name"
-                  placeholder="First Name"
-                  value={this.state.newUser.first_name}
-                  onChange={this.updateSignUpInputs}
-                />
-              </div>
-              <div className="three wide field">
-                <input
-                  id="last_name"
-                  type="text"
-                  name="last_name"
-                  placeholder="Last Name"
-                  value={this.state.newUser.last_name}
-                  onChange={this.updateSignUpInputs}
-                />
-              </div>
-              <div className="three wide field">
-                <input
-                  id="city"
-                  type="text"
-                  name="city"
-                  placeholder="City"
-                  value={this.state.newUser.city}
-                  onChange={this.updateSignUpInputs}
-                />
-              </div>
-              <div className="one wide field">
-                <input
-                  id="state"
-                  type="text"
-                  name="state"
-                  placeholder="State"
-                  value={this.state.newUser.state}
-                  onChange={this.updateSignUpInputs}
-                />
-              </div>
-            </div>
-            <button className="ui button" type="submit" value="Submit">
-              Register
-            </button>
-          </div>
-        </form>
-      </Fragment>
-    )
-  }
+          </form>
+        </Fragment>
+      )
+    }
+    }
   }
 
 export default SignUpPage

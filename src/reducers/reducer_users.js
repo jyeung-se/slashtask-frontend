@@ -20,7 +20,7 @@ const usersReducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state,
-        user: action.payload,
+        currentUser: action.payload,
         logged_in: true,
         authenticatingUser: false
       }
@@ -38,7 +38,7 @@ const usersReducer = (state = initialState, action) => {
         logged_in: false,
         failedLogin: false,
         error: false
-
+      }
     default:
       return state
   }
