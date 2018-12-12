@@ -19,5 +19,5 @@ import { fetchCurrentUser } from './user_actions'
     // }).then(res => console.log("Created a new tasklist."))
     }).then(res => res.json())
     .then(created_tasklist => store.dispatch({type: CREATE_TASKLIST, tasklist: created_tasklist}))
-    .then(created_tasklist => store.dispatch({type: SET_CURRENT_TASKLIST, tasklist: created_tasklist}))
+    .then(selected_tasklist => store.dispatch({type: SET_CURRENT_TASKLIST, tasklist: selected_tasklist}))
   }

@@ -17,7 +17,7 @@ const tasklistsReducer = (state = initialState, action) => {
     case SET_CURRENT_TASKLIST:
       return {
         ...state,
-        currentTasklist: action.tasklist
+        currentTasklist: action.payload
       }
     default:
       return state

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Task from '../components/Task'
 import { connect } from 'react-redux'
 import withAuth from '../hocs/withAuth'
+import { compose } from 'redux'
 
 
 class TaskList extends Component {
@@ -19,6 +20,7 @@ class TaskList extends Component {
 
   render () {
     // console.log("TaskList props", this.props)
+    console.log("props user", this.props.user)
     return (
       <table className="ui celled striped padded table">
         <tbody>
@@ -62,4 +64,4 @@ return {
 }
 
 
-export default connect(mapStateToProps)(TaskList)
+export default withAuth(connect(mapStateToProps)(TaskList))

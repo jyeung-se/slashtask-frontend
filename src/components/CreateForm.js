@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import withAuth from '../hocs/withAuth'
+
 
 class CreateForm extends Component {
   constructor(props) {
@@ -80,4 +82,4 @@ class CreateForm extends Component {
   }
   }
 
-export default CreateForm
+export default withAuth(CreateForm)

@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router'
+import { connect } from 'react-redux'
+
 
 class SignUpPage extends Component {
   constructor(props) {
@@ -39,17 +41,17 @@ class SignUpPage extends Component {
     event.preventDefault()
     if (this.props.createUser && this.props.createTasklist) {
       this.props.createUser(this.state.newUser)
-      this.props.createTasklist(this.state.tasklist)
-      return <Redirect to='http://localhost:3001/tasks' />
+      // this.props.createTasklist(this.state.tasklist)
+      this.props.history.push("/tasks")
     }
     // to prevent breaking if register with an error
   }
 
 
   render() {
-
+  console.log('this.props are:', this.props);
     if (this.props.user) {
-      return <Redirect to='http://localhost:3001/tasks' />
+      return <Redirect to={'/tasks'} />
     } else {
       return (
         <Fragment>
@@ -139,4 +141,10 @@ class SignUpPage extends Component {
     }
   }
 
-export default SignUpPage
+  const mapStateToProps = ({ users: { logged_in } }) => {
+    return {
+      logged_in
+    }
+  }
+
+export default connect(mapStateToProps)(SignUpPage)

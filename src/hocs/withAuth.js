@@ -8,26 +8,34 @@ const withAuth = (WrappedComponent) => {
   class AuthorizedComponent extends React.Component {
 
     componentDidMount() {
-      if (localStorage.getItem('jwt') && !this.props.logged_in) this.props.fetchCurrentUser()
+      if (localStorage.getItem('jwt') && this.props.loggedIn) this.props.fetchCurrentUser()
     }
 
     render() {
-      if (localStorage.getItem('jwt') && this.props.logged_in) {
+      if (localStorage.getItem('jwt') && this.props.loggedIn) {
         return <WrappedComponent />
       } else {
         return <Redirect to={
-          'http://localhost:3001/login'
+          '/login'
         }
       />
       }
     }
   }
 
-  function mapStateToProps({ usersReducer: { logged_in } }) {
+  const mapStateToProps = (state) => {
     return {
-      logged_in,
+      loggedIn: state.users.loggedIn
     }
   }
+
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      fetchCurrentUser: () => console.log('hello')
+      // fetchCurrentUser: () => dispatch(actions.fetchCurrentUser()), //dispatch is automagically provided by redux
+    }
+  }
+
 
   return connect(mapStateToProps, actions)(AuthorizedComponent)
 }

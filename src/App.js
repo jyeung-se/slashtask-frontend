@@ -96,15 +96,15 @@ class App extends Component {
         <FrontPage user={this.props.user} />
       </div>
 
-    const signUpPage =
-      <div>
-        <SignUpPage user={this.props.user} createUser={createUser} createTasklist={createTasklist} />
-      </div>
+    // const signUpPage =
+    //   <div>
+    //     <SignUpPage user={this.props.user} createUser={createUser} createTasklist={createTasklist} />
+    //   </div>
 
-    const loginPage =
-      <div>
-        <LoginPage user={this.props.user} login={login} />
-      </div>
+    // const loginPage =
+    //   <div>
+    //     <LoginPage user={this.props.user} login={login} />
+    //   </div>
 
     const taskList =
       <div>
@@ -140,8 +140,10 @@ class App extends Component {
       <Router>
         <div className="ui raised segment">
           <Route exact path="/" component={() => frontPage} />
-          <Route exact path="/signup" component={() => signUpPage} />
-          <Route exact path="/login" component={() => loginPage} />
+          {/* <Route exact path="/signup" component={() => signUpPage} /> */}
+          <Route exact path="/signup" component={(renderprops) => <SignUpPage user={this.props.user} createUser={createUser} createTasklist={createTasklist} {...renderprops} />} />
+          {/* <Route exact path="/login" component={() => loginPage} /> */}
+          <Route exact path="/login" component={(renderprops) => <LoginPage user={this.props.user} login={login} {...renderprops} />} />
           <Route exact path="/newtask" render={(renderprops) => <CreateForm handleNewTaskSubmit={this.handleNewTaskSubmit} {...renderprops} />} />
           <Route exact path="/tasks" component={() => taskList} />
           <Route exact path="/slashed_tasks" component={() => slashedTaskList} />

@@ -96,4 +96,4 @@ class EditForm extends Component {
   }
   }
 
-export default withAuth(EditForm); // wrap component with auth HOC to limit access
+export default withAuth(EditForm) // wrap component with auth HOC to limit access

@@ -4,7 +4,7 @@ const initialState = {
   users: [],
   currentUser: null,
   authenticatingUser: false,
-  logged_in: false,
+  loggedIn: false,
   failedLogin: false,
   error: null
 }
@@ -21,7 +21,7 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: action.user,
-        logged_in: true,
+        loggedIn: true,
         authenticatingUser: false
       }
     case FAILED_LOGIN:
@@ -35,7 +35,7 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         currentUser: null,
         authenticatingUser: false,
-        logged_in: false,
+        loggedIn: false,
         failedLogin: false,
         error: false
       }

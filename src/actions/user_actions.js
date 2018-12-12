@@ -1,6 +1,6 @@
-import { CREATE_USER, SET_CURRENT_USER, FAILED_LOGIN, LOG_OUT } from './types'
+import { CREATE_USER, SET_CURRENT_USER, FAILED_LOGIN, LOG_OUT, SET_CURRENT_TASKLIST } from './types'
 import store from '../store'
-
+import { push } from 'react-router-redux'
 
   export const createUser = (user) => {
     console.log(user);
@@ -62,8 +62,11 @@ import store from '../store'
     .then(json => {
       localStorage.setItem('jwt', json.jwt)
       store.dispatch({type: SET_CURRENT_USER, user: json.user})
+      console.log(json)
+      store.dispatch({type: SET_CURRENT_TASKLIST, tasklist: json.user.task_lists[0]})
     })
-    .catch(response => response.json().then(json => store.dispatch({type: FAILED_LOGIN, payload: json.message})))
+    .catch(response => console.log(response))
+    // .catch(response => response.json().then(json => store.dispatch({type: FAILED_LOGIN, payload: json.message})))
   }
 
 

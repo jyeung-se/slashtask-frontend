@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import SlashedTask from '../components/SlashedTask'
 import { connect } from 'react-redux'
-
+import withAuth from '../hocs/withAuth'
+import { compose } from 'redux'
 
 class SlashedTaskList extends Component {
 
@@ -55,4 +56,7 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(SlashedTaskList)
+export default compose(
+  withAuth,
+  connect(mapStateToProps))
+  (SlashedTaskList)
