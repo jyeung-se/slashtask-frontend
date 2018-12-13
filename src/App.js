@@ -12,7 +12,7 @@ import SlashedTaskList from './containers/SlashedTaskList'
 import { fetchTasks, createTask, editTask, deleteTask, slashTask } from './actions/task_actions'
 import { createUser, login } from './actions/user_actions'
 import { createTasklist } from './actions/tasklist_actions'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 class App extends Component {
@@ -139,14 +139,16 @@ class App extends Component {
     return (
       <Router>
         <div className="ui raised segment">
-          <Route exact path="/" component={() => frontPage} />
-          {/* <Route exact path="/signup" component={() => signUpPage} /> */}
-          <Route exact path="/signup" component={(renderprops) => <SignUpPage user={this.props.user} createUser={createUser} createTasklist={createTasklist} {...renderprops} />} />
-          {/* <Route exact path="/login" component={() => loginPage} /> */}
-          <Route exact path="/login" component={(renderprops) => <LoginPage user={this.props.user} login={login} {...renderprops} />} />
-          <Route exact path="/newtask" render={(renderprops) => <CreateForm handleNewTaskSubmit={this.handleNewTaskSubmit} {...renderprops} />} />
-          <Route exact path="/tasks" component={() => taskList} />
-          <Route exact path="/slashed_tasks" component={() => slashedTaskList} />
+          <Switch>
+            <Route exact path="/" component={() => frontPage} />
+            {/* <Route exact path="/signup" component={() => signUpPage} /> */}
+            <Route exact path="/signup" component={(renderprops) => <SignUpPage user={this.props.user} createUser={createUser} createTasklist={createTasklist} {...renderprops} />} />
+            {/* <Route exact path="/login" component={() => loginPage} /> */}
+            <Route exact path="/login" component={(renderprops) => <LoginPage user={this.props.user} login={login} {...renderprops} />} />
+            <Route exact path="/newtask" render={(renderprops) => <CreateForm handleNewTaskSubmit={this.handleNewTaskSubmit} {...renderprops} />} />
+            <Route exact path="/tasks" component={() => taskList} />
+            <Route exact path="/slashed_tasks" component={() => slashedTaskList} />
+          </Switch>
         </div>
       </Router>
     )

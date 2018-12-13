@@ -56,7 +56,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default compose(
-  withAuth,
-  connect(mapStateToProps))
-  (SlashedTaskList)
+export default withAuth(connect(mapStateToProps)(SlashedTaskList))

@@ -34,17 +34,14 @@ class LoginPage extends Component {
     event.preventDefault()
 
     if (this.props.login) {
-      console.log('huh')
       this.props.login(this.state.currentUser)
-      this.props.history.push("/tasks")
     }
   }
 
 
   render() {
-    console.log(this.props.user);
     // console.log("login state is", this.state)
-    if (this.props.user) {
+    if (this.props.loggedIn) {
       return <Redirect to={'/tasks'} />
     } else {
       return (

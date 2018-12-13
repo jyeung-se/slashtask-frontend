@@ -6,7 +6,7 @@ export const fetchTasks = (task) => {
     method: "GET",
     headers: {Authorization: `Bearer ${localStorage.getItem('jwt')}`},
   }).then(res => res.json())
-  .then(eachTask => store.dispatch({type: FETCH_TASKS, task: eachTask}))
+  .then(tasks => store.dispatch({type: FETCH_TASKS, tasks: tasks}))
 }
 //   store.dispatch({
 //     type: FETCH_TASKS,

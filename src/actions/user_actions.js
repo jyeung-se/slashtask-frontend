@@ -1,4 +1,4 @@
-import { CREATE_USER, SET_CURRENT_USER, FAILED_LOGIN, LOG_OUT, SET_CURRENT_TASKLIST } from './types'
+import { CREATE_USER, SET_CURRENT_USER, FAILED_LOGIN, LOG_OUT, SET_CURRENT_TASKLIST, FETCH_TASKS } from './types'
 import store from '../store'
 import { push } from 'react-router-redux'
 
@@ -61,9 +61,10 @@ import { push } from 'react-router-redux'
     })
     .then(json => {
       localStorage.setItem('jwt', json.jwt)
-      store.dispatch({type: SET_CURRENT_USER, user: json.user})
-      console.log(json)
+
       store.dispatch({type: SET_CURRENT_TASKLIST, tasklist: json.user.task_lists[0]})
+      store.dispatch({type: FETCH_TASKS, tasks: json.user.task_lists[0].tasks})
+      store.dispatch({type: SET_CURRENT_USER, user: json.user})
     })
     .catch(response => console.log(response))
     // .catch(response => response.json().then(json => store.dispatch({type: FAILED_LOGIN, payload: json.message})))
@@ -93,6 +94,6 @@ import { push } from 'react-router-redux'
   })
 
   export const logoutUser = () => {
-    localStorage.clear()
+    localStorage.removeItem('jwt') // to remove user and logout
     store.dispatch({type: LOG_OUT})
   }

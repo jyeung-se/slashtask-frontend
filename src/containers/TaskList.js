@@ -7,6 +7,7 @@ import { compose } from 'redux'
 
 class TaskList extends Component {
 
+
   mappedTasks = () => {
     // console.log('non-slashed tasks: ', this.props.tasks.filter((task) => task.slashed === false))
 
@@ -19,8 +20,9 @@ class TaskList extends Component {
   }
 
   render () {
-    // console.log("TaskList props", this.props)
+    console.log("TaskList props", this.props)
     console.log("props user", this.props.user)
+    console.log("props tasks", this.props.tasks)
     return (
       <table className="ui celled striped padded table">
         <tbody>
@@ -55,13 +57,19 @@ class TaskList extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside TaskList
   console.log("app state", state)
+  console.log("this.props are: ", this.props)
+
 return {
+    currentUser: state.users.currentUser,
+
     tasks: state.tasks.tasks
+    .filter((task) => task.task_list_id === state.users.currentUser.task_lists[0].id)
     .filter((task) => task.slashed === false)
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
     // .sort to sort by newest task created instead of ID by default
   }
 }
+// }
 
 
 export default withAuth(connect(mapStateToProps)(TaskList))

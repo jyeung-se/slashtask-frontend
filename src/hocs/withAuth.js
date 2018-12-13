@@ -7,9 +7,9 @@ const withAuth = (WrappedComponent) => {
 
   class AuthorizedComponent extends React.Component {
 
-    componentDidMount() {
-      if (localStorage.getItem('jwt') && this.props.loggedIn) this.props.fetchCurrentUser()
-    }
+    // componentDidMount() {
+    //   if (localStorage.getItem('jwt') && this.props.loggedIn === true) this.props.fetchCurrentUser()
+    // }
 
     render() {
       if (localStorage.getItem('jwt') && this.props.loggedIn) {
