@@ -20,7 +20,7 @@ const usersReducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.user,
+        currentUser: action.payload, // coming over as action.payload from setCurrentUser
         loggedIn: true,
         authenticatingUser: false
       }

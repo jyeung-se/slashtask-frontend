@@ -73,19 +73,23 @@ import { push } from 'react-router-redux'
 
   export const setCurrentUser = (userInfo) => ({
     type: SET_CURRENT_USER,
-    payload: userInfo
+    payload: userInfo // be consistent with either 'payload' or 'user' in your reducers
   })
 
   // Gets current user
   export const fetchCurrentUser = () => {
-    fetch("http://localhost:3000/api/v1/profile", {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`
-      }
-    })
-    .then(response => response.json())
-    .then((json) => store.dispatch(setCurrentUser(json.user)))
+    
+    // thunk lets you return a function rather an object - return the function to fetchs
+    return (dispatch) => {
+      return fetch("http://localhost:3000/api/v1/profile", {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('jwt')}`
+        }
+      })
+      .then(response => response.json())
+      .then((json) => dispatch(setCurrentUser(json.user)))
+    }
   }
 
   export const failedLogin = (errorMsg) => ({

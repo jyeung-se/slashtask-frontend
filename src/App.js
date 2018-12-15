@@ -12,7 +12,7 @@ import SlashedTaskList from './containers/SlashedTaskList'
 import { fetchTasks, createTask, editTask, deleteTask, slashTask } from './actions/task_actions'
 import { createUser, login } from './actions/user_actions'
 import { createTasklist } from './actions/tasklist_actions'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 
 class App extends Component {
@@ -115,7 +115,8 @@ class App extends Component {
         />}
         <h2>Hi {this.state.user.first_name}, this is your up-to-date task list.</h2>
         <br/>
-        <a href="/newtask"><button className="ui button left">Create a new task</button></a>
+        {/* <a href="/newtask"><button className="ui button left">Create a new task</button></a> */}
+        <Link to="/newtask">New Task</Link> {/* try using Link from react-router-dom */}
         {"  ~    ~  "}
         <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
         <TaskList tasks={this.state.tasks}
