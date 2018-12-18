@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import withAuth from '../hocs/withAuth'
+import { Redirect } from 'react-router'
+import { connect } from 'react-redux'
 
 
 class CreateForm extends Component {
@@ -36,50 +38,60 @@ class CreateForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.handleNewTaskSubmit(this.state.newTask)
-    this.props.history.push("/tasks")
   }
 
 
   render () {
-    // console.log("renderprops", this.props)
-    return (
-      <Fragment>
-        <br/>
-        <a href="/"><button className="ui button left">Back to my Task List</button></a>
-        <h1>Create a New Task</h1>
-        <form
-          className="ui form center aligned sixteen wide column"
-          onSubmit={this.handleSubmit}
-        >
-          <div className="inline fields">
-            <div className="eight wide field">
-              <textarea
-                id="title"
-                type="text"
-                name="title"
-                placeholder="Task Title"
-                value={this.state.newTask.title}
-                onChange={this.updateNewTaskInputs}
-              />
+    console.log("CreateForm props are: ", this.props)
+
+    if (this.props.loggedIn) {
+      return (
+        <Fragment>
+          <br/>
+          <a href="/"><button className="ui button left">Back to my Task List</button></a>
+          <h1>Create a New Task</h1>
+          <form
+            className="ui form center aligned sixteen wide column"
+            onSubmit={this.handleSubmit}
+          >
+            <div className="inline fields">
+              <div className="eight wide field">
+                <textarea
+                  id="title"
+                  type="text"
+                  name="title"
+                  placeholder="Task Title"
+                  value={this.state.newTask.title}
+                  onChange={this.updateNewTaskInputs}
+                />
+              </div>
+              <div className="eight wide field">
+                <textarea
+                  id="description"
+                  type="text"
+                  name="description"
+                  placeholder="Task Description"
+                  value={this.state.newTask.description}
+                  onChange={this.updateNewTaskInputs}
+                />
+              </div>
+              <button className="ui button" type="submit" value="Submit">
+                Create Task
+              </button>
             </div>
-            <div className="eight wide field">
-              <textarea
-                id="description"
-                type="text"
-                name="description"
-                placeholder="Task Description"
-                value={this.state.newTask.description}
-                onChange={this.updateNewTaskInputs}
-              />
-            </div>
-            <button className="ui button" type="submit" value="Submit">
-              Create Task
-            </button>
-          </div>
-        </form>
-      </Fragment>
-    )
+          </form>
+        </Fragment>
+      )
+    } else {
+      return <Redirect to={'/login'} />
+    }
   }
+}
+
+  const mapStateToProps = ({ users: { loggedIn } }) => {
+    return {
+      loggedIn
+    }
   }
 
-export default withAuth(CreateForm)
+export default withAuth(connect(mapStateToProps)(CreateForm))
