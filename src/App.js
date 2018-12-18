@@ -9,6 +9,7 @@ import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
+import SearchBar from './components/SearchBar'
 import { fetchTasks, createTask, editTask, deleteTask, slashTask } from './actions/task_actions'
 import { createUser } from './actions/user_actions'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -31,7 +32,8 @@ class App extends Component {
         last_name: "Yeung",
         city: "New York",
         state: "NY",
-      }
+      },
+      searchInput: ''
     }
   }
 
@@ -40,6 +42,13 @@ class App extends Component {
     fetch('http://localhost:3000/api/v1/tasks')
     .then(res => res.json())
     .then(task => fetchTasks(task))
+  }
+
+
+  updateSearchInput = (event) => {
+    this.setState({
+      searchInput: event.target.value
+    })
   }
 
 
@@ -88,7 +97,12 @@ class App extends Component {
 
   render(props) {
     // console.log('this.state.tasks are: ', this.state.tasks)
-  // console.log('props are: ', this.props)
+  console.log('props are: ', this.props)
+
+    // shows just the filtered tasks upon searchInput change
+    let filteredTasks = this.state.tasks.filter((task) => task.title.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.description.toLowerCase().includes(this.state.searchInput.toLowerCase()))
+    console.log('filteredTasks are: ', filteredTasks)
+
 
     const frontPage =
       <div>
@@ -107,6 +121,7 @@ class App extends Component {
 
     const taskList =
       <div>
+        <SearchBar searchInput={this.state.searchInput} updateSearchInput={this.updateSearchInput} tasks={this.state.tasks} />
         {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks}
           currentTask={this.state.currentTask}
           updateExistingTaskInputs={this.updateExistingTaskInputs}
@@ -117,7 +132,7 @@ class App extends Component {
         <a href="/newtask"><button className="ui button left">Create a new task</button></a>
         {"  ~    ~  "}
         <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
-        <TaskList tasks={this.state.tasks}
+        <TaskList tasks={filteredTasks}
           handleEditTask={this.handleEditTask}
           handleSlashTask={this.handleSlashTask}
           handleDeleteTask={this.handleDeleteTask}
