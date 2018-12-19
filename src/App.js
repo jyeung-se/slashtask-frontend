@@ -10,6 +10,7 @@ import CreateForm from './components/CreateForm'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
 import SearchBar from './components/SearchBar'
+import { updateSearch } from './actions/search_actions'
 import { fetchTasks, createTask, editTask, deleteTask, slashTask } from './actions/task_actions'
 import { createUser } from './actions/user_actions'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -49,6 +50,7 @@ class App extends Component {
     this.setState({
       searchInput: event.target.value
     })
+    updateSearch(this.state.searchInput)
   }
 
 
@@ -97,12 +99,8 @@ class App extends Component {
 
   render(props) {
     // console.log('this.state.tasks are: ', this.state.tasks)
-  console.log('props are: ', this.props)
-
-    // shows just the filtered tasks upon searchInput change
-    let filteredTasks = this.state.tasks.filter((task) => task.title.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.description.toLowerCase().includes(this.state.searchInput.toLowerCase()))
-    console.log('filteredTasks are: ', filteredTasks)
-
+    // console.log('props are: ', this.props)
+    console.log('searchInput is: ', this.state.searchInput)
 
     const frontPage =
       <div>
@@ -132,10 +130,11 @@ class App extends Component {
         <a href="/newtask"><button className="ui button left">Create a new task</button></a>
         {"  ~    ~  "}
         <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
-        <TaskList tasks={filteredTasks}
+        <TaskList tasks={this.state.tasks}
           handleEditTask={this.handleEditTask}
           handleSlashTask={this.handleSlashTask}
           handleDeleteTask={this.handleDeleteTask}
+          searchInput={this.state.searchInput}
         />
       </div>
 

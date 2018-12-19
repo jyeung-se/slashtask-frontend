@@ -4,6 +4,9 @@ export const EDIT_TASK = 'EDIT_TASK'
 export const SLASH_TASK = 'SLASH_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 
+export const UPDATE_SEARCH = 'UPDATE_SEARCH'
+
+
 export const CREATE_USER = 'CREATE_USER'
 
 export const CREATE_TASKLIST ='CREATE_TASKLIST'

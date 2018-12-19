@@ -1,7 +1,7 @@
 import { FETCH_TASKS, CREATE_TASK, EDIT_TASK, SLASH_TASK, DELETE_TASK } from '../actions/types'
 
 const initialState = {
-  tasks: [],
+  tasks: []
   // slashedTasks: []
 }
 

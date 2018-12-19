@@ -30,9 +30,7 @@ class SearchBar extends Component {
           <div className="inline fields">
             <div className="eight wide field">
               <input
-                id="searchinput"
                 type="text"
-                name="searchinput"
                 placeholder="Search Keyword"
                 value={this.props.searchInput}
                 onChange={this.props.updateSearchInput}
