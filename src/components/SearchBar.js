@@ -1,22 +1,6 @@
 import React, { Component, Fragment } from 'react'
 
 class SearchBar extends Component {
-  constructor(props) {
-    super(props)
-
-    // this.state = {
-    //   searchInput: ''
-    // }
-  }
-
-
-  // updateSearchInput = (event) => {
-  //   this.setState({
-  //     ...this.props.searchInput,
-  //     [event.target.name]: event.target.value   // this way requires you add 'name' to the input fields in your Form
-  //   })
-  //   this.props.tasks.filter((task) => task.title.includes(this.props.searchInput) || task.description.includes(this.props.searchInput))
-  // }
 
 
   render () {
@@ -33,7 +17,7 @@ class SearchBar extends Component {
                 type="text"
                 placeholder="Search Keyword"
                 value={this.props.searchInput}
-                onChange={this.props.updateSearchInput}
+                onChange={this.props.handleChange}
               />
             </div>
           </div>

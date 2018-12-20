@@ -3,8 +3,7 @@ import tasksReducer from './reducer_tasks'
 import searchReducer from './reducer_searchs'
 
 const rootReducer = combineReducers({
-  tasks: tasksReducer,
-  search: searchReducer
+  tasks: tasksReducer
 })
 
 export default rootReducer
