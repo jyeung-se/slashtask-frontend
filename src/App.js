@@ -47,10 +47,13 @@ class App extends Component {
 
 
   updateSearchInput = (event) => {
+    // this.setState({
+    //   searchInput: event.target.value
+    // })
+    // updateSearch(this.state.searchInput)
     this.setState({
       searchInput: event.target.value
-    })
-    updateSearch(this.state.searchInput)
+    }, () => updateSearch(this.state.searchInput))
   }
 
 
@@ -117,26 +120,29 @@ class App extends Component {
         <LoginPage user={this.props.user} />
       </div>
 
-    const taskList =
-      <div>
-        <SearchBar searchInput={this.state.searchInput} updateSearchInput={this.updateSearchInput} tasks={this.state.tasks} />
-        {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks}
-          currentTask={this.state.currentTask}
-          updateExistingTaskInputs={this.updateExistingTaskInputs}
-          handleEditSubmit={this.handleEditSubmit}
-        />}
-        <h2>Hi {this.state.user.first_name}, this is your up-to-date task list.</h2>
-        <br/>
-        <a href="/newtask"><button className="ui button left">Create a new task</button></a>
-        {"  ~    ~  "}
-        <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
-        <TaskList tasks={this.state.tasks}
-          handleEditTask={this.handleEditTask}
-          handleSlashTask={this.handleSlashTask}
-          handleDeleteTask={this.handleDeleteTask}
-          searchInput={this.state.searchInput}
-        />
-      </div>
+
+    // make TaskList.js the container instead of having below code written in App.js
+
+    // const taskList =
+    //   <div>
+    //     <SearchBar searchInput={this.state.searchInput} updateSearchInput={this.updateSearchInput} tasks={this.state.tasks} />
+    //     {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks}
+    //       currentTask={this.state.currentTask}
+    //       updateExistingTaskInputs={this.updateExistingTaskInputs}
+    //       handleEditSubmit={this.handleEditSubmit}
+    //     />}
+    //     <h2>Hi {this.state.user.first_name}, this is your up-to-date task list.</h2>
+    //     <br/>
+    //     <a href="/newtask"><button className="ui button left">Create a new task</button></a>
+    //     {"  ~    ~  "}
+    //     <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
+    //     <TaskList tasks={this.state.tasks}
+    //       handleEditTask={this.handleEditTask}
+    //       handleSlashTask={this.handleSlashTask}
+    //       handleDeleteTask={this.handleDeleteTask}
+    //       searchInput={this.state.searchInput}
+    //     />
+    //   </div>
 
     const slashedTaskList =
       <div>
@@ -156,7 +162,10 @@ class App extends Component {
           <Route exact path="/signup" component={() => signUpPage} />
           <Route exact path="/login" component={() => loginPage} />
           <Route exact path="/newtask" render={(renderprops) => <CreateForm handleNewTaskSubmit={this.handleNewTaskSubmit} {...renderprops} />} />
-          <Route exact path="/tasks" component={() => taskList} />
+          {/* <Route exact path="/tasks" component={() => TaskList} /> */}
+
+          {/* with TaskList as container, pass the whole component */}
+          <Route exact path="/tasks" component={TaskList} />
           <Route exact path="/slashed_tasks" component={() => slashedTaskList} />
         </div>
       </Router>
