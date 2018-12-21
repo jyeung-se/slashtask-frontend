@@ -1,57 +1,83 @@
 import React, { Component } from 'react'
 import SlashedTask from '../components/SlashedTask'
+import { slashTask } from '../actions/task_actions'
 import { connect } from 'react-redux'
+import SearchBar from '../components/SearchBar'
+import { Link } from 'react-router-dom'
 
 
 class SlashedTaskList extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state={
+      searchInput: ''
+    }
+  }
+
+
+  handleSlashTask = (task) => {
+    slashTask(task)
+  }
+
 
   mappedSlashedTasks = () => {
     // this.props.slashedTasks here are already filtered
     // for only slashed tasks (true) via filter()
     // in the mapStateToProps() at the very bottom
-    return this.props.slashedTasks.sort((a, b) => a.updated_at- b.updated_at)
+    return this.props.tasks.filter((task) => task.slashed === true &&
+      (task.title.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.description.toLowerCase().includes(this.state.searchInput.toLowerCase())))
+    .sort((a, b) => a.updated_at- b.updated_at)
     .map((task, index) => <SlashedTask
       task={task}
       key={index}
-      handleSlashTask={this.props.handleSlashTask} />
+      handleSlashTask={this.handleSlashTask} />
     )
   }
 
   render() {
     console.log("SlashedTaskList props are", this.props)
 
-    return (
-      <table className="ui celled striped padded table">
-        <tbody>
-          <tr>
-            <th>
-              <h3 className="ui center aligned header">Task Title</h3>
-            </th>
-            <th>
-              <h3 className="ui center aligned header">Task Description</h3>
-            </th>
-            <th>
-              <h3 className="ui center aligned header">Date Slashed</h3>
-            </th>
-            <th>
-              <h3 className="ui center aligned header">UnSlash Task</h3>
-            </th>
-          </tr>
+    if (this.props.tasklists === []) {
+      alert('Please create a tasklist first.')
+      return <Link to={'/newtasklist'} />
+    } else {
+      return (
+        <div>
+          <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
+          <SearchBar searchInput={this.state.searchInput} handleChange={this.handleChange} tasks={this.props.tasks} />
 
-          {this.mappedSlashedTasks()}
-        </tbody>
-      </table>
-    )
+          <table className="ui celled striped padded table">
+            <tbody>
+              <tr>
+                <th>
+                  <h3 className="ui center aligned header">Task Title</h3>
+                </th>
+                <th>
+                  <h3 className="ui center aligned header">Task Description</h3>
+                </th>
+                <th>
+                  <h3 className="ui center aligned header">Date Slashed</h3>
+                </th>
+                <th>
+                  <h3 className="ui center aligned header">UnSlash Task</h3>
+                </th>
+              </tr>
+
+              {this.mappedSlashedTasks()}
+            </tbody>
+          </table>
+        </div>
+      )
+    }
   }
 }
 
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside TaskList
   return {
-    slashedTasks: state.tasks.tasks
-    .filter((task) => task.slashed === true)
-    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-    // .sort to sort by most recent completed task instead of ID by default
+    tasks: state.tasks.tasks,
+    tasklists: state.tasklists.tasklists
   }
 }
 

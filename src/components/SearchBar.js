@@ -9,7 +9,6 @@ class SearchBar extends Component {
     return (
       <Fragment>
         <br/>
-        <a href="/"><button className="ui button left">Back to my Task List</button></a>
         <h2>Search by Task Title Keywords</h2>
           <div className="inline fields">
             <div className="eight wide field">

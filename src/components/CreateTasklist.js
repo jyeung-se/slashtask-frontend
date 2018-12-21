@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react'
 
-class CreateForm extends Component {
+class CreateTasklist extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      // tasks: this.props.tasks,
-      newTask: {},
+      newTasklist: {},
       // user: {
       //   id: 1,
       //   user_name: "AerosDawson",
@@ -19,12 +18,12 @@ class CreateForm extends Component {
   }
 
 
-  updateNewTaskInputs = (event) => {
+  updateNewTasklistInputs = (event) => {
     this.setState({
       ...this.state,
-      newTask:
+      newTasklist:
       {
-        ...this.state.newTask,   // prevents overwriting other keys (if any) in the newTask state not listed below
+        ...this.state.newTasklist,   // prevents overwriting other keys (if any) in the newTasklist state not listed below
         [event.target.name]: event.target.value   // this way requires you add 'name' to the input fields in your Form
       }
     })
@@ -33,7 +32,7 @@ class CreateForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.handleNewTaskSubmit(this.state.newTask)
+    this.props.handleNewTasklistSubmit(this.state.newTasklist)
     this.props.history.push("/tasks")
   }
 
@@ -43,34 +42,24 @@ class CreateForm extends Component {
     return (
       <Fragment>
         <br/>
-        <h1>Create a New Task</h1>
+        <h1>Create a New Tasklist</h1>
         <form
           className="ui form center aligned sixteen wide column"
           onSubmit={this.handleSubmit}
         >
           <div className="inline fields">
             <div className="eight wide field">
-              <textarea
-                id="title"
+              <input
+                id="list_title"
                 type="text"
-                name="title"
-                placeholder="Task Title"
-                value={this.state.newTask.title}
-                onChange={this.updateNewTaskInputs}
-              />
-            </div>
-            <div className="eight wide field">
-              <textarea
-                id="description"
-                type="text"
-                name="description"
-                placeholder="Task Description"
-                value={this.state.newTask.description}
-                onChange={this.updateNewTaskInputs}
+                name="list_title"
+                placeholder="Tasklist Title"
+                value={this.state.newTasklist.list_title}
+                onChange={this.updateNewTasklistInputs}
               />
             </div>
             <button className="ui button" type="submit" value="Submit">
-              Create Task
+              Create Tasklist
             </button>
           </div>
         </form>
@@ -79,4 +68,4 @@ class CreateForm extends Component {
   }
   }
 
-export default CreateForm
+export default CreateTasklist

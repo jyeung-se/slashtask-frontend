@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
 import tasksReducer from './reducer_tasks'
-import searchReducer from './reducer_searchs'
+import tasklistsReducer from './reducer_tasklists'
 
 const rootReducer = combineReducers({
-  tasks: tasksReducer
+  tasks: tasksReducer,
+  tasklists: tasklistsReducer
 })
 
 export default rootReducer

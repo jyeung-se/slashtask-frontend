@@ -7,10 +7,11 @@ import SignUpPage from './components/SignUpPage'
 import LoginPage from './components/LoginPage'
 import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
+import CreateTasklist from './components/CreateTasklist'
+import { createTasklist } from './actions/tasklist_actions'
+import { fetchTasks, createTask } from './actions/task_actions'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
-import { updateSearch } from './actions/search_actions'
-import { fetchTasks, createTask, editTask, deleteTask, slashTask } from './actions/task_actions'
 import { createUser } from './actions/user_actions'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -22,9 +23,9 @@ class App extends Component {
     this.state={
 
       tasks: [],
-      currentTask: null,
+      tasklists: [],
       slashedTasks: [],
-      users: [],
+      // users: [],
       user: {
         id: 1,
         user_name: "AerosDawson",
@@ -44,6 +45,14 @@ class App extends Component {
   }
 
 
+  handleNewTasklistSubmit = (tasklist) => {
+    this.setState({
+      tasklists: [...this.state.tasklists, tasklist]
+    })
+    createTasklist(this.state.user.id, tasklist)
+  }
+
+
   handleNewTaskSubmit = (task) => {
     this.setState({
       tasks: [...this.state.tasks, task]
@@ -54,36 +63,6 @@ class App extends Component {
 
   handleCreate = (task) => {
     createTask(this.state.user.id, task)
-  }
-
-  handleEditTask = (task) => {
-    this.setState({
-      currentTask: task
-    // }, () => console.log("currentTask is", this.state.currentTask))
-    })
-  }
-
-
-  handleEditSubmit = (task) => {
-    this.setState({
-      currentTask: null
-    })
-    this.handlePatch(task)
-  }
-
-
-  handlePatch = (task) => {
-    editTask(task)
-  }
-
-
-  handleSlashTask = (task) => {
-    slashTask(task)
-  }
-
-
-  handleDeleteTask = (task) => {
-    deleteTask(task)
   }
 
 
@@ -127,16 +106,16 @@ class App extends Component {
     //     />
     //   </div>
 
-    const slashedTaskList =
-      <div>
-        <h2>Hi {this.state.user.first_name}, the following are your slashed tasks.</h2>
-        <br/>
-        <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
-        <SlashedTaskList
-          slashedTasks={this.state.tasks.filter((task) => task.slashed === true)}
-          handleSlashTask={this.handleSlashTask}
-        />
-      </div>
+    // const slashedTaskList =
+    //   <div>
+    //     <h2>Hi {this.state.user.first_name}, the following are your slashed tasks.</h2>
+    //     <br/>
+    //     <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
+    //     <SlashedTaskList
+    //       slashedTasks={this.state.tasks.filter((task) => task.slashed === true)}
+    //       handleSlashTask={this.handleSlashTask}
+    //     />
+    //   </div>
 
     return (
       <Router>
@@ -144,9 +123,10 @@ class App extends Component {
           <Route exact path="/" component={() => frontPage} />
           <Route exact path="/signup" component={() => signUpPage} />
           <Route exact path="/login" component={() => loginPage} />
+          <Route exact path="/newtasklist" render={(renderprops) => <CreateTasklist handleNewTasklistSubmit={this.handleNewTasklistSubmit} {...renderprops} />} />
           <Route exact path="/newtask" render={(renderprops) => <CreateForm handleNewTaskSubmit={this.handleNewTaskSubmit} {...renderprops} />} />
           <Route exact path="/tasks" component={TaskList} />
-          <Route exact path="/slashed_tasks" component={() => slashedTaskList} />
+          <Route exact path="/slashed_tasks" component={SlashedTaskList} />
         </div>
       </Router>
     )

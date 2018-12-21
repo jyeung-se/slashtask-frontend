@@ -40,6 +40,15 @@ class FrontPage extends Component {
               </div>
             </button>
           </a>
+          {"  | |  "}
+          <a href="/newtasklist">
+            <button className='ui animated button'>
+              <div className='visible content'>Create a Tasklist</div>
+              <div className='hidden content'>
+                <i aria-hidden='true' className='tasks icon' />
+              </div>
+            </button>
+          </a>
           <br/>
           <br/>
           <CarouselSlider />
