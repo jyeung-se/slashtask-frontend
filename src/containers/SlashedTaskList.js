@@ -21,6 +21,14 @@ class SlashedTaskList extends Component {
   }
 
 
+  handleChange = (event) => {
+    event.preventDefault()
+    this.setState({
+      searchInput: event.target.value
+    })
+  }
+
+
   mappedSlashedTasks = () => {
     // this.props.slashedTasks here are already filtered
     // for only slashed tasks (true) via filter()
