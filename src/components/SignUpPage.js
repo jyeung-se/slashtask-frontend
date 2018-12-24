@@ -6,7 +6,7 @@ class SignUpPage extends Component {
 
     this.state = {
       newUser: {
-        "user_name": '',
+        "username": '',
         "password": '',
         "first_name": 'Nax',
         "last_name": 'Nelson',
@@ -51,11 +51,11 @@ class SignUpPage extends Component {
           <div className="inline fields">
             <div className="eight wide field">
               <input
-                id="user_name"
+                id="username"
                 type="text"
-                name="user_name"
+                name="username"
                 placeholder="User Name"
-                value={this.state.newUser.user_name}
+                value={this.state.newUser.username}
                 onChange={this.updateSignUpInputs}
               />
             </div>

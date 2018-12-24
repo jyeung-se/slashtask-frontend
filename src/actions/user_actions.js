@@ -17,8 +17,8 @@ export const login = (user) => {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({
-        "user_name": `${user.user_name}`,
-        "password": `${user.password}`,
+        "username": `${user.username}`,
+        // "password": `${user.password}`,
         "first_name": `${user.first_name}`,
         "last_name": `${user.last_name}`,
         "city": `${user.city}`,

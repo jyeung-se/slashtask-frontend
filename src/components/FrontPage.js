@@ -1,13 +1,36 @@
 import React, { Component, Fragment } from 'react';
 import CarouselSlider from './CarouselSlider'
+import { connect } from 'react-redux'
+
 
 class FrontPage extends Component {
 
+  componentDidMount() {
+    //this is to show/hide the 'Create Tasklist' button
+    //based on if the user already made one.
+    //In componentDidMount in order to prevent split second
+    //flash of the button upon initial load/refresh
+    if (this.props.tasklists !== []) {
+      return (
+        <a href="/newtasklist">
+          <button className='ui animated button'>
+            <div className='visible content'>Create a Tasklist</div>
+            <div className='hidden content'>
+              <i aria-hidden='true' className='tasks icon' />
+            </div>
+          </button>
+        </a>
+      )
+    }
+  }
 
   render() {
+    console.log('front page props are: ', this.props)
+
     return (
       <Fragment>
-        <a href="/signup">
+        {/* SignUp and Login buttons hidden for noAuth version */}
+        {/* <a href="/signup">
           <button className='ui animated button'>
             <div className='visible content'>Sign Up</div>
             <div className='hidden content'>
@@ -23,11 +46,11 @@ class FrontPage extends Component {
               <i aria-hidden='true' className='user icon' />
             </div>
           </button>
-        </a>
+        </a> */}
         <div className="ui raised segment">
           <div className="ui center aligned segment violet inverted">
             <header className="App-header">
-              <font size="7">Welcome to slashTask</font>
+              <font size="7">Welcome to SlashTask</font>
             <br/>
               <h1>Slash Off One Task at a Time</h1>
             </header>
@@ -40,15 +63,14 @@ class FrontPage extends Component {
               </div>
             </button>
           </a>
-          {"  | |  "}
-          <a href="/newtasklist">
+          {/* <a href="/newtasklist">
             <button className='ui animated button'>
               <div className='visible content'>Create a Tasklist</div>
               <div className='hidden content'>
                 <i aria-hidden='true' className='tasks icon' />
               </div>
             </button>
-          </a>
+          </a> */}
           <br/>
           <br/>
           <CarouselSlider />
@@ -58,4 +80,11 @@ class FrontPage extends Component {
   }
 }
 
-export default FrontPage
+
+function mapStateToProps(state) {
+  return {
+    tasklists: state.tasklists.tasklists
+  }
+}
+
+export default connect(mapStateToProps)(FrontPage)

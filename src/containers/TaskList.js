@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import EditForm from '../components/EditForm'
 import SearchBar from '../components/SearchBar'
 import { Link } from 'react-router-dom'
+import { fetchTasklists } from '../actions/tasklist_actions'
+
 
 
 class TaskList extends Component {
@@ -16,7 +18,7 @@ class TaskList extends Component {
       users: [],
       user: {
         id: 1,
-        user_name: "AerosDawson",
+        username: "AerosDawson",
         first_name: "Jack",
         last_name: "Yeung",
         city: "New York",
@@ -24,6 +26,13 @@ class TaskList extends Component {
       },
       searchInput: ''
     }
+  }
+
+
+  componentDidMount() {
+    fetch('http://localhost:3000/api/v1/task_lists')
+    .then(res => res.json())
+    .then(tasklist => fetchTasklists(tasklist))
   }
 
 
@@ -85,8 +94,7 @@ class TaskList extends Component {
   render () {
     console.log("TaskList props", this.props)
 
-    if (this.props.tasklists === []) {
-      alert('Please create a tasklist first.')
+    if (this.props.tasklists.length === 0) {
       return <Link to={'/newtasklist'} />
     } else {
       return (

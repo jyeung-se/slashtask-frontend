@@ -9,7 +9,7 @@ class LoginPage extends Component {
 
     this.state = {
       currentUser: {
-        user_name: '',
+        username: '',
         password: '',
         logged_in: false
       }
@@ -33,12 +33,12 @@ class LoginPage extends Component {
   handleLogin = (event) => {
     event.preventDefault()
 
-    this.props.login(this.state.currentUser.user_name, this.state.currentUser.password);
+    this.props.login(this.state.currentUser.username, this.state.currentUser.password);
     console.log(this.state);
     // debugger
     this.setState({
       currentUser: {
-        user_name: this.state.currentUser.user_name,
+        username: this.state.currentUser.username,
         password: this.state.currentUser.password,
         logged_in: true
       }
@@ -62,11 +62,11 @@ class LoginPage extends Component {
           <div className="inline fields">
             <div className="eight wide field">
               <input
-                id="user_name"
+                id="username"
                 type="text"
-                name="user_name"
+                name="username"
                 placeholder="User Name"
-                value={this.state.currentUser.user_name}
+                value={this.state.currentUser.username}
                 onChange={this.updateLoginInputs}
               />
             </div>
@@ -94,7 +94,7 @@ class LoginPage extends Component {
   return {
     currentUser: state.currentUser
     // currentUser: {
-    //   user_name: state.currentUser.user_name,
+    //   username: state.currentUser.username,
     //   password: state.currentUser.password
     // }
   }
@@ -102,7 +102,7 @@ class LoginPage extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (user_name, password) => dispatch(login(user_name, password))
+    login: (username, password) => dispatch(login(username, password))
   }
 }
 

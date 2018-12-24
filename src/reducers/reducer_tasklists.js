@@ -1,4 +1,4 @@
-import { CREATE_TASKLIST } from '../actions/types'
+import { FETCH_TASKLISTS, CREATE_TASKLIST } from '../actions/types'
 
 const initialState = {
   tasklists: []
@@ -6,11 +6,11 @@ const initialState = {
 
 const tasklistsReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case FETCH_TASKS:
-    //   return {
-    //     ...state,
-    //     tasks: action.payload
-    //   }
+    case FETCH_TASKLISTS:
+      return {
+        ...state,
+        tasklists: action.payload
+      }
 
     case CREATE_TASKLIST:
       return {

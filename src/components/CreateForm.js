@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class CreateForm extends Component {
   constructor(props) {
@@ -9,7 +11,7 @@ class CreateForm extends Component {
       newTask: {},
       // user: {
       //   id: 1,
-      //   user_name: "AerosDawson",
+      //   username: "AerosDawson",
       //   first_name: "Jack",
       //   last_name: "Yeung",
       //   city: "New York",
@@ -39,44 +41,57 @@ class CreateForm extends Component {
 
 
   render () {
-    // console.log("renderprops", this.props)
-    return (
-      <Fragment>
-        <br/>
-        <h1>Create a New Task</h1>
-        <form
-          className="ui form center aligned sixteen wide column"
-          onSubmit={this.handleSubmit}
-        >
-          <div className="inline fields">
-            <div className="eight wide field">
-              <textarea
-                id="title"
-                type="text"
-                name="title"
-                placeholder="Task Title"
-                value={this.state.newTask.title}
-                onChange={this.updateNewTaskInputs}
-              />
-            </div>
-            <div className="eight wide field">
-              <textarea
-                id="description"
-                type="text"
-                name="description"
-                placeholder="Task Description"
-                value={this.state.newTask.description}
-                onChange={this.updateNewTaskInputs}
-              />
-            </div>
-            <button className="ui button" type="submit" value="Submit">
-              Create Task
-            </button>
-          </div>
-        </form>
-      </Fragment>
-    )
-  }
-  }
+    console.log("CreateForm props are: ", this.props)
 
-export default CreateForm
+    // if (this.props.tasklists.length === 0) {
+    //   alert('Please create a Tasklist first.')
+    //   return <Link to={'/newtasklist'} />
+    //   } else {
+        return (
+        <Fragment>
+          <br/>
+          <h1>Create a New Task</h1>
+          <form
+            className="ui form center aligned sixteen wide column"
+            onSubmit={this.handleSubmit}
+          >
+            <div className="inline fields">
+              <div className="eight wide field">
+                <textarea
+                  id="title"
+                  type="text"
+                  name="title"
+                  placeholder="Task Title"
+                  value={this.state.newTask.title}
+                  onChange={this.updateNewTaskInputs}
+                />
+              </div>
+              <div className="eight wide field">
+                <textarea
+                  id="description"
+                  type="text"
+                  name="description"
+                  placeholder="Task Description"
+                  value={this.state.newTask.description}
+                  onChange={this.updateNewTaskInputs}
+                />
+              </div>
+              <button className="ui button" type="submit" value="Submit">
+                Create Task
+              </button>
+            </div>
+          </form>
+        </Fragment>
+      )
+    }
+  // }
+}
+
+
+function mapStateToProps(state) {
+  return {
+    tasklists: state.tasklists.tasklists
+  }
+}
+
+export default connect(mapStateToProps)(CreateForm)

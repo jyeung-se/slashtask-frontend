@@ -8,7 +8,7 @@ import LoginPage from './components/LoginPage'
 import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import CreateTasklist from './components/CreateTasklist'
-import { createTasklist } from './actions/tasklist_actions'
+import { fetchTasklists, createTasklist } from './actions/tasklist_actions'
 import { fetchTasks, createTask } from './actions/task_actions'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
@@ -24,21 +24,25 @@ class App extends Component {
 
       tasks: [],
       tasklists: [],
-      slashedTasks: [],
+      // slashedTasks: [],
       // users: [],
       user: {
         id: 1,
-        user_name: "AerosDawson",
-        first_name: "Jack",
-        last_name: "Yeung",
-        city: "New York",
-        state: "NY",
+        username: "DefaultUser",
+        first_name: "Admin_First",
+        last_name: "Admin_Last",
+        city: "NA",
+        state: "NA",
       },
     }
   }
 
 
   componentDidMount() {
+    fetch('http://localhost:3000/api/v1/task_lists')
+    .then(res => res.json())
+    .then(tasklist => fetchTasklists(tasklist))
+
     fetch('http://localhost:3000/api/v1/tasks')
     .then(res => res.json())
     .then(task => fetchTasks(task))
@@ -49,7 +53,8 @@ class App extends Component {
     this.setState({
       tasklists: [...this.state.tasklists, tasklist]
     })
-    createTasklist(this.state.user.id, tasklist)
+    createUser(this.state.user)
+    createTasklist(tasklist)
   }
 
 
