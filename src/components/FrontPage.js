@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react'
 import CarouselSlider from './CarouselSlider'
 import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom'
 
 
-class FrontPage extends Component {
+const FrontPage = (props) => {
 
-  showCreateTasklistButton = () => {
-    if (this.props.tasklists.length === 0) {
+  const showCreateTasklistButton = () => {
+    if (props.tasklists.length === 0) {
       return (
         // <b><Link to="/newtasklist">Create a Tasklist</Link></b>
         <a href="/newtasklist">
@@ -22,8 +22,8 @@ class FrontPage extends Component {
     }
   }
 
-  showViewTasksButton = () => {
-    if (this.props.tasklists.length > 0) {
+  const showViewTasksButton = () => {
+    if (props.tasklists.length > 0) {
       return (
         // <b><Link to="/tasks">View my Tasks</Link></b>
         <a href="/tasks">
@@ -38,9 +38,6 @@ class FrontPage extends Component {
     }
   }
 
-
-  render() {
-    console.log('front page props are: ', this.props)
 
     return (
       <Fragment>
@@ -71,7 +68,7 @@ class FrontPage extends Component {
             </header>
           </div>
           {/* <b><Link to="/tasks">View my Tasks</Link></b> */}
-          {this.showViewTasksButton()}
+          {showViewTasksButton()}
           {/* <a href="/tasks">
             <button className='ui animated button'>
               <div className='visible content'>View my Tasks</div>
@@ -81,14 +78,14 @@ class FrontPage extends Component {
             </button>
           </a> */}
           {/* {'   ||   '} */}
-          {this.showCreateTasklistButton()}
+          {showCreateTasklistButton()}
           <br/>
           <br/>
           <CarouselSlider />
         </div>
       </Fragment>
     )
-  }
+
 }
 
 

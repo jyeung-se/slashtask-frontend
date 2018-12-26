@@ -37,8 +37,9 @@ class SlashedTaskList extends Component {
     // for only slashed tasks (true) via filter()
     // in the mapStateToProps() at the very bottom
     return this.props.tasks.filter((task) => task.slashed === true &&
-      (task.title.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.description.toLowerCase().includes(this.state.searchInput.toLowerCase())))
-    .sort((a, b) => a.updated_at- b.updated_at)
+      (task.title.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.description.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.updated_at.split("T")[0].includes(this.state.searchInput)))
+    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+    // .sort to sort by most recent slashed task instead of ID by default
     .map((task, index) => <SlashedTask
       task={task}
       key={index}
@@ -49,43 +50,38 @@ class SlashedTaskList extends Component {
   render() {
     console.log("SlashedTaskList props are", this.props)
 
-    if (this.props.tasklists === []) {
-      alert('Please create a tasklist first.')
-      return <Link to={'/newtasklist'} />
-    } else {
-      return (
-        <div>
-          <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
-          <br/>
-          <br/>
-          <br/>
-          <b>The current time and date is: </b><b style={{ color: 'blue' }}><ClockTime /></b>
-          <SlashedTaskCounter tasks={this.state.tasks} />
-          <SearchBar searchInput={this.state.searchInput} handleChange={this.handleChange} tasks={this.props.tasks} />
+    return (
+      <div>
+        <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
+        <br/>
+        <br/>
+        <br/>
+        <b>The current time and date is: </b><b style={{ color: 'blue' }}><ClockTime /></b>
+        <SlashedTaskCounter tasks={this.state.tasks} />
+        <SearchBar searchInput={this.state.searchInput} handleChange={this.handleChange} tasks={this.props.tasks} />
 
-          <Table color="green" inverted className="ui celled striped padded table">
-            <Table.Body>
-              <Table.Row>
-                <Table.HeaderCell>
-                  <h3 className="ui center aligned header">Task Title</h3>
-                </Table.HeaderCell>
-                <Table.HeaderCell>
-                  <h3 className="ui center aligned header">Task Description</h3>
-                </Table.HeaderCell>
-                <Table.HeaderCell>
-                  <h3 className="ui center aligned header">Date Slashed</h3>
-                </Table.HeaderCell>
-                <Table.HeaderCell>
-                  <h3 className="ui center aligned header">Unslash Task</h3>
-                </Table.HeaderCell>
-              </Table.Row>
+        <Table color="green" inverted className="ui celled striped padded table">
+          <Table.Body>
+            <Table.Row>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Task Title</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Task Description</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Date Slashed</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Unslash Task</h3>
+              </Table.HeaderCell>
+            </Table.Row>
 
-              {this.mappedSlashedTasks()}
-            </Table.Body>
-          </Table>
-        </div>
-      )
-    }
+            {this.mappedSlashedTasks()}
+          </Table.Body>
+        </Table>
+      </div>
+    )
   }
 }
 

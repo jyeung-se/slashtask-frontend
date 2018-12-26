@@ -32,7 +32,7 @@ const tasksReducer = (state = initialState, action) => {
       return {
         ...state,
         // tasks: action.payload
-        tasks: state.tasks.filter((task) => task.id !== action.task.id),
+        tasks: state.tasks.filter((task) => task.id !== action.task.id)
         // slashedTasks: [state.slashedTasks, action.task]
         // .sort((a,b) => a.created_at - b.created_at)
       }

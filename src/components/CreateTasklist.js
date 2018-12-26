@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { createUser } from '../actions/user_actions'
 
 
 class CreateTasklist extends Component {
@@ -19,6 +20,11 @@ class CreateTasklist extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.props.users.length === 0) {
+      createUser(this.props.user)
+    }
+  }
 
   updateNewTasklistInputs = (event) => {
     this.setState({
@@ -74,6 +80,7 @@ class CreateTasklist extends Component {
 
   function mapStateToProps(state) {
     return {
+      users: state.users.users,
       tasklists: state.tasklists.tasklists
     }
   }

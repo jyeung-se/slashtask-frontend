@@ -14,6 +14,7 @@ import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
 import { createUser } from './actions/user_actions'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { connect } from 'react-redux'
 
 
 class App extends Component {
@@ -47,7 +48,9 @@ class App extends Component {
     .then(res => res.json())
     .then(task => fetchTasks(task))
 
-    createUser(this.state.user)
+    // if (this.props.users.length === 0) {
+    //   createUser(this.state.user)
+    // }
   }
 
 
@@ -75,7 +78,7 @@ class App extends Component {
 
   render(props) {
     // console.log('this.state.tasks are: ', this.state.tasks)
-    // console.log('props are: ', this.props)
+    console.log('App.js props are: ', this.props)
 
     const frontPage =
       <div>
@@ -99,7 +102,7 @@ class App extends Component {
           <Route exact path="/" component={() => frontPage} />
           {/* <Route exact path="/signup" component={() => signUpPage} /> */}
           {/* <Route exact path="/login" component={() => loginPage} /> */}
-          <Route exact path="/newtasklist" render={(renderprops) => <CreateTasklist handleNewTasklistSubmit={this.handleNewTasklistSubmit} {...renderprops} />} />
+          <Route exact path="/newtasklist" render={(renderprops) => <CreateTasklist handleNewTasklistSubmit={this.handleNewTasklistSubmit} user={this.state.user} {...renderprops} />} />
           <Route exact path="/newtask" render={(renderprops) => <CreateForm handleNewTaskSubmit={this.handleNewTaskSubmit} {...renderprops} />} />
           <Route exact path="/tasks" component={TaskList} />
           <Route exact path="/slashed_tasks" component={SlashedTaskList} />
@@ -109,4 +112,12 @@ class App extends Component {
   }
 }
 
-export default App;
+
+function mapStateToProps(state) {
+  return {
+    users: state.users.users
+  }
+}
+
+export default connect(mapStateToProps)(App)
+// export default App;

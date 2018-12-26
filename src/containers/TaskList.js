@@ -69,11 +69,11 @@ class TaskList extends Component {
 
 
   mappedTasks = () => {
-    console.log('non-slashed tasks: ', this.props.tasks.filter((task) => task.slashed === false))
-    console.log('non-slashed && filtered tasks: ', this.props.tasks.filter((task) => task.slashed === false && task.title.toLowerCase().includes(this.props.searchInput)))
+    // console.log('non-slashed tasks: ', this.props.tasks.filter((task) => task.slashed === false))
+    // console.log('non-slashed && filtered tasks: ', this.props.tasks.filter((task) => task.slashed === false && task.title.toLowerCase().includes(this.props.searchInput)))
 
     return this.props.tasks.filter((task) => task.slashed === false &&
-      (task.title.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.description.toLowerCase().includes(this.state.searchInput.toLowerCase())))
+      (task.title.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.description.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.created_at.split("T")[0].includes(this.state.searchInput)))
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
     // .sort to sort by newest task created instead of ID by default
     .map((task) => <Task task={task}
