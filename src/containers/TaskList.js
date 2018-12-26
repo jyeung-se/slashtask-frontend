@@ -85,7 +85,7 @@ class TaskList extends Component {
   }
 
   render () {
-    console.log("TaskList props are: ", this.props)
+    // console.log("TaskList props are: ", this.props)
 
     return (
       <div>

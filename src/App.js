@@ -12,9 +12,7 @@ import { fetchTasklists, createTasklist } from './actions/tasklist_actions'
 import { fetchTasks, createTask } from './actions/task_actions'
 import TaskList from './containers/TaskList'
 import SlashedTaskList from './containers/SlashedTaskList'
-import { createUser } from './actions/user_actions'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { connect } from 'react-redux'
 
 
 class App extends Component {
@@ -47,10 +45,6 @@ class App extends Component {
     fetch('http://localhost:3000/api/v1/tasks')
     .then(res => res.json())
     .then(task => fetchTasks(task))
-
-    // if (this.props.users.length === 0) {
-    //   createUser(this.state.user)
-    // }
   }
 
 
@@ -78,21 +72,21 @@ class App extends Component {
 
   render(props) {
     // console.log('this.state.tasks are: ', this.state.tasks)
-    console.log('App.js props are: ', this.props)
+    // console.log('App.js props are: ', this.props)
 
     const frontPage =
       <div>
-        <FrontPage user={this.props.user} />
+        <FrontPage />
       </div>
 
     // const signUpPage =
     //   <div>
-    //     <SignUpPage user={this.props.user} registerUser={createUser} />
+    //     <SignUpPage user={this.state.user} registerUser={createUser} />
     //   </div>
     //
     // const loginPage =
     //   <div>
-    //     <LoginPage user={this.props.user} />
+    //     <LoginPage user={this.state.user} />
     //   </div>
 
 
@@ -113,11 +107,4 @@ class App extends Component {
 }
 
 
-function mapStateToProps(state) {
-  return {
-    users: state.users.users
-  }
-}
-
-export default connect(mapStateToProps)(App)
-// export default App;
+export default App

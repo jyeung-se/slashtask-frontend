@@ -3,7 +3,6 @@ import SlashedTask from '../components/SlashedTask'
 import { slashTask } from '../actions/task_actions'
 import { connect } from 'react-redux'
 import SearchBar from '../components/SearchBar'
-import { Link } from 'react-router-dom'
 import SlashedTaskCounter from '../components/SlashedTaskCounter'
 import ClockTime from '../components/ClockTime'
 import { Table } from 'semantic-ui-react'
@@ -48,7 +47,7 @@ class SlashedTaskList extends Component {
   }
 
   render() {
-    console.log("SlashedTaskList props are", this.props)
+    // console.log("SlashedTaskList props are", this.props)
 
     return (
       <div>

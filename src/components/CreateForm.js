@@ -40,7 +40,7 @@ class CreateForm extends Component {
 
 
   render () {
-    console.log("CreateForm props are: ", this.props)
+    // console.log("CreateForm props are: ", this.props)
 
     // if (this.props.tasklists.length === 0) {
     //   alert('Please create a Tasklist first.')

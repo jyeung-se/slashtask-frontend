@@ -47,7 +47,7 @@ class CreateTasklist extends Component {
 
 
   render () {
-    console.log("CreateTaskList props are: ", this.props)
+    // console.log("CreateTaskList props are: ", this.props)
 
     return (
       <Fragment>
