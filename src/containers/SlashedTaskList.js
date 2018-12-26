@@ -4,6 +4,8 @@ import { slashTask } from '../actions/task_actions'
 import { connect } from 'react-redux'
 import SearchBar from '../components/SearchBar'
 import { Link } from 'react-router-dom'
+import SlashedTaskCounter from '../components/SlashedTaskCounter'
+import ClockTime from '../components/ClockTime'
 
 
 class SlashedTaskList extends Component {
@@ -53,6 +55,11 @@ class SlashedTaskList extends Component {
       return (
         <div>
           <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
+          <br/>
+          <br/>
+          <br/>
+          <b>The current time and date is: </b><b style={{ color: 'blue' }}><ClockTime /></b>
+          <SlashedTaskCounter tasks={this.state.tasks} />
           <SearchBar searchInput={this.state.searchInput} handleChange={this.handleChange} tasks={this.props.tasks} />
 
           <table className="ui celled striped padded table">

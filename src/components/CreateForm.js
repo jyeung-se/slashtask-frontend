@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class CreateForm extends Component {
@@ -45,7 +45,7 @@ class CreateForm extends Component {
 
     // if (this.props.tasklists.length === 0) {
     //   alert('Please create a Tasklist first.')
-    //   return <Link to={'/newtasklist'} />
+    //   return <Redirect to={'/newtasklist'} />
     //   } else {
         return (
         <Fragment>

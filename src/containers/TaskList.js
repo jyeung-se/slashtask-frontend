@@ -4,9 +4,10 @@ import Task from '../components/Task'
 import { connect } from 'react-redux'
 import EditForm from '../components/EditForm'
 import SearchBar from '../components/SearchBar'
-import { Link } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { fetchTasklists } from '../actions/tasklist_actions'
-
+import TaskCounter from '../components/TaskCounter'
+import ClockTime from '../components/ClockTime'
 
 
 class TaskList extends Component {
@@ -26,13 +27,6 @@ class TaskList extends Component {
       },
       searchInput: ''
     }
-  }
-
-
-  componentDidMount() {
-    fetch('http://localhost:3000/api/v1/task_lists')
-    .then(res => res.json())
-    .then(tasklist => fetchTasklists(tasklist))
   }
 
 
@@ -92,54 +86,57 @@ class TaskList extends Component {
   }
 
   render () {
-    console.log("TaskList props", this.props)
+    console.log("TaskList props are: ", this.props)
 
-    if (this.props.tasklists.length === 0) {
-      return <Link to={'/newtasklist'} />
-    } else {
-      return (
-        <div>
-          <a href="/"><button className="ui button left">Back to Frontpage</button></a>
-          <SearchBar searchInput={this.state.searchInput} handleChange={this.handleChange} tasks={this.props.tasks} />
-          {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks}
-          currentTask={this.state.currentTask}
-          updateExistingTaskInputs={this.updateExistingTaskInputs}
-          handleEditSubmit={this.handleEditSubmit}
-           />}
-          <br/>
-          <a href="/newtask"><button className="ui button left">Create a new task</button></a>
-          {"  ~    ~  "}
-          <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
+    return (
+      <div>
+        <a href="/"><button className="ui button left">Back to Frontpage</button></a>
+        <br/>
+        <br/>
+        <br/>
+        <b>The current time and date is: </b><b style={{ color: 'blue' }}><ClockTime /></b>
+        <TaskCounter tasks={this.state.tasks} />
+        <SearchBar searchInput={this.state.searchInput} handleChange={this.handleChange} tasks={this.props.tasks} />
+        {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks}
+        currentTask={this.state.currentTask}
+        updateExistingTaskInputs={this.updateExistingTaskInputs}
+        handleEditSubmit={this.handleEditSubmit}
+         />}
+        <br/>
+        <a href="/newtask"><button className="ui button left">Create a new task</button></a>
+        {/* <Link to="/newtask">Create a new task</Link> */}
+        {"  ~    ~  "}
+        <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
+        {/* <Link to="/slashed_tasks">View Slashed Tasks</Link> */}
 
-          <table className="ui celled striped padded table">
-            <tbody>
-              <tr>
-                <th>
-                  <h3 className="ui center aligned header">Task Title</h3>
-                </th>
-                <th>
-                  <h3 className="ui center aligned header">Task Description</h3>
-                </th>
-                <th>
-                  <h3 className="ui center aligned header">Date Posted</h3>
-                </th>
-                <th>
-                  <h3 className="ui center aligned header">Update Task</h3>
-                </th>
-                <th>
-                  <h3 className="ui center aligned header">Slash Task</h3>
-                </th>
-                <th>
-                  <h3 className="ui center aligned header">Delete Task</h3>
-                </th>
-              </tr>
+        <table className="ui celled striped padded table">
+          <tbody>
+            <tr>
+              <th>
+                <h3 className="ui center aligned header">Task Title</h3>
+              </th>
+              <th>
+                <h3 className="ui center aligned header">Task Description</h3>
+              </th>
+              <th>
+                <h3 className="ui center aligned header">Date Posted</h3>
+              </th>
+              <th>
+                <h3 className="ui center aligned header">Update Task</h3>
+              </th>
+              <th>
+                <h3 className="ui center aligned header">Slash Task</h3>
+              </th>
+              <th>
+                <h3 className="ui center aligned header">Delete Task</h3>
+              </th>
+            </tr>
 
-              {this.mappedTasks()}
-            </tbody>
-          </table>
-        </div>
-      )
-    }
+            {this.mappedTasks()}
+          </tbody>
+        </table>
+      </div>
+    )
   }
 }
 

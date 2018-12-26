@@ -46,6 +46,8 @@ class App extends Component {
     fetch('http://localhost:3000/api/v1/tasks')
     .then(res => res.json())
     .then(task => fetchTasks(task))
+
+    createUser(this.state.user)
   }
 
 
@@ -53,7 +55,7 @@ class App extends Component {
     this.setState({
       tasklists: [...this.state.tasklists, tasklist]
     })
-    createUser(this.state.user)
+    // createUser(this.state.user)
     createTasklist(tasklist)
   }
 
@@ -126,8 +128,8 @@ class App extends Component {
       <Router>
         <div className="ui raised segment">
           <Route exact path="/" component={() => frontPage} />
-          <Route exact path="/signup" component={() => signUpPage} />
-          <Route exact path="/login" component={() => loginPage} />
+          {/* <Route exact path="/signup" component={() => signUpPage} /> */}
+          {/* <Route exact path="/login" component={() => loginPage} /> */}
           <Route exact path="/newtasklist" render={(renderprops) => <CreateTasklist handleNewTasklistSubmit={this.handleNewTasklistSubmit} {...renderprops} />} />
           <Route exact path="/newtask" render={(renderprops) => <CreateForm handleNewTaskSubmit={this.handleNewTaskSubmit} {...renderprops} />} />
           <Route exact path="/tasks" component={TaskList} />

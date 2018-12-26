@@ -1,28 +1,23 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 
-class SearchBar extends Component {
+const SearchBar = (props) => {
 
-
-  render () {
-    console.log("SearchBar this.props are: ", this.props)
-
-    return (
-      <Fragment>
-        <br/>
-        <h2>Search by Task Title Keywords</h2>
-          <div className="inline fields">
-            <div className="eight wide field">
-              <input
-                type="text"
-                placeholder="Search Keyword"
-                value={this.props.searchInput}
-                onChange={this.props.handleChange}
-              />
-            </div>
+  return (
+    <Fragment>
+      <br/>
+      <h2>Search by Task Title Keywords</h2>
+        <div className="inline fields">
+          <div className="eight wide field">
+            <input
+              type="text"
+              placeholder="Search Keyword"
+              value={props.searchInput}
+              onChange={props.handleChange}
+            />
           </div>
-      </Fragment>
-    )
-  }
-  }
+        </div>
+    </Fragment>
+  )
+}
 
 export default SearchBar

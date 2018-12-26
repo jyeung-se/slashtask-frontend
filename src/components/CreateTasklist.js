@@ -1,4 +1,7 @@
 import React, { Component, Fragment } from 'react'
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 
 class CreateTasklist extends Component {
   constructor(props) {
@@ -34,11 +37,13 @@ class CreateTasklist extends Component {
     event.preventDefault()
     this.props.handleNewTasklistSubmit(this.state.newTasklist)
     this.props.history.push("/tasks")
+
   }
 
 
   render () {
-    // console.log("renderprops", this.props)
+    console.log("CreateTaskList props are: ", this.props)
+
     return (
       <Fragment>
         <br/>
@@ -68,4 +73,10 @@ class CreateTasklist extends Component {
   }
   }
 
-export default CreateTasklist
+  function mapStateToProps(state) {
+    return {
+      tasklists: state.tasklists.tasklists
+    }
+  }
+
+  export default connect(mapStateToProps)(CreateTasklist)

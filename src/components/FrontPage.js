@@ -1,28 +1,43 @@
 import React, { Component, Fragment } from 'react';
 import CarouselSlider from './CarouselSlider'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 
 class FrontPage extends Component {
 
-  componentDidMount() {
-    //this is to show/hide the 'Create Tasklist' button
-    //based on if the user already made one.
-    //In componentDidMount in order to prevent split second
-    //flash of the button upon initial load/refresh
-    if (this.props.tasklists !== []) {
+  showCreateTasklistButton = () => {
+    if (this.props.tasklists.length === 0) {
       return (
-        <a href="/newtasklist">
-          <button className='ui animated button'>
-            <div className='visible content'>Create a Tasklist</div>
-            <div className='hidden content'>
-              <i aria-hidden='true' className='tasks icon' />
-            </div>
-          </button>
-        </a>
+        <b><Link to="/newtasklist">Create a Tasklist</Link></b>
+        // {/* <a href="/newtasklist">
+        //   <button className='ui animated button'>
+        //     <div className='visible content'>Create a Tasklist</div>
+        //     <div className='hidden content'>
+        //       <i aria-hidden='true' className='tasks icon' />
+        //     </div>
+        //   </button>
+        // </a> */}
       )
     }
   }
+
+  showViewTasksButton = () => {
+    if (this.props.tasklists.length > 0) {
+      return (
+        <b><Link to="/tasks">View my Tasks</Link></b>
+        // {/* <a href="/newtasklist">
+        //   <button className='ui animated button'>
+        //     <div className='visible content'>Create a Tasklist</div>
+        //     <div className='hidden content'>
+        //       <i aria-hidden='true' className='tasks icon' />
+        //     </div>
+        //   </button>
+        // </a> */}
+      )
+    }
+  }
+
 
   render() {
     console.log('front page props are: ', this.props)
@@ -55,22 +70,18 @@ class FrontPage extends Component {
               <h1>Slash Off One Task at a Time</h1>
             </header>
           </div>
-          <a href="/tasks">
+          {/* <b><Link to="/tasks">View my Tasks</Link></b> */}
+          {this.showViewTasksButton()}
+          {/* <a href="/tasks">
             <button className='ui animated button'>
               <div className='visible content'>View my Tasks</div>
               <div className='hidden content'>
                 <i aria-hidden='true' className='tasks icon' />
               </div>
             </button>
-          </a>
-          {/* <a href="/newtasklist">
-            <button className='ui animated button'>
-              <div className='visible content'>Create a Tasklist</div>
-              <div className='hidden content'>
-                <i aria-hidden='true' className='tasks icon' />
-              </div>
-            </button>
           </a> */}
+          {/* {'   ||   '} */}
+          {this.showCreateTasklistButton()}
           <br/>
           <br/>
           <CarouselSlider />
