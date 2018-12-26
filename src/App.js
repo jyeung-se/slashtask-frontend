@@ -3,9 +3,9 @@ import './App.css';
 // import ImgSlider from './components/ImgSlider.js'
 // import CarouselSlider from './components/CarouselSlider.js'
 import FrontPage from './components/FrontPage'
-import SignUpPage from './components/SignUpPage'
-import LoginPage from './components/LoginPage'
-import EditForm from './components/EditForm'
+// import SignUpPage from './components/SignUpPage'
+// import LoginPage from './components/LoginPage'
+// import EditForm from './components/EditForm'
 import CreateForm from './components/CreateForm'
 import CreateTasklist from './components/CreateTasklist'
 import { fetchTasklists, createTasklist } from './actions/tasklist_actions'
@@ -82,47 +82,16 @@ class App extends Component {
         <FrontPage user={this.props.user} />
       </div>
 
-    const signUpPage =
-      <div>
-        <SignUpPage user={this.props.user} registerUser={createUser} />
-      </div>
-
-    const loginPage =
-      <div>
-        <LoginPage user={this.props.user} />
-      </div>
-
-    // const taskList =
+    // const signUpPage =
     //   <div>
-    //     <SearchBar searchInput={this.state.searchInput} updateSearchInput={this.updateSearchInput} tasks={this.state.tasks} />
-    //     {this.state.currentTask === null ? null : <EditForm tasks={this.state.tasks}
-    //       currentTask={this.state.currentTask}
-    //       updateExistingTaskInputs={this.updateExistingTaskInputs}
-    //       handleEditSubmit={this.handleEditSubmit}
-    //     />}
-    //     <h2>Hi {this.state.user.first_name}, this is your up-to-date task list.</h2>
-    //     <br/>
-    //     <a href="/newtask"><button className="ui button left">Create a new task</button></a>
-    //     {"  ~    ~  "}
-    //     <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
-    //     <TaskList tasks={this.state.tasks}
-    //       handleEditTask={this.handleEditTask}
-    //       handleSlashTask={this.handleSlashTask}
-    //       handleDeleteTask={this.handleDeleteTask}
-    //       searchInput={this.state.searchInput}
-    //     />
+    //     <SignUpPage user={this.props.user} registerUser={createUser} />
+    //   </div>
+    //
+    // const loginPage =
+    //   <div>
+    //     <LoginPage user={this.props.user} />
     //   </div>
 
-    // const slashedTaskList =
-    //   <div>
-    //     <h2>Hi {this.state.user.first_name}, the following are your slashed tasks.</h2>
-    //     <br/>
-    //     <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
-    //     <SlashedTaskList
-    //       slashedTasks={this.state.tasks.filter((task) => task.slashed === true)}
-    //       handleSlashTask={this.handleSlashTask}
-    //     />
-    //   </div>
 
     return (
       <Router>

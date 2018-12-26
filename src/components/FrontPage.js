@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import CarouselSlider from './CarouselSlider'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 
 class FrontPage extends Component {
@@ -9,15 +9,15 @@ class FrontPage extends Component {
   showCreateTasklistButton = () => {
     if (this.props.tasklists.length === 0) {
       return (
-        <b><Link to="/newtasklist">Create a Tasklist</Link></b>
-        // {/* <a href="/newtasklist">
-        //   <button className='ui animated button'>
-        //     <div className='visible content'>Create a Tasklist</div>
-        //     <div className='hidden content'>
-        //       <i aria-hidden='true' className='tasks icon' />
-        //     </div>
-        //   </button>
-        // </a> */}
+        // <b><Link to="/newtasklist">Create a Tasklist</Link></b>
+        <a href="/newtasklist">
+          <button className='ui animated button'>
+            <div className='visible content'>Create a Tasklist</div>
+            <div className='hidden content'>
+              <i aria-hidden='true' className='tasks icon' />
+            </div>
+          </button>
+        </a>
       )
     }
   }
@@ -25,15 +25,15 @@ class FrontPage extends Component {
   showViewTasksButton = () => {
     if (this.props.tasklists.length > 0) {
       return (
-        <b><Link to="/tasks">View my Tasks</Link></b>
-        // {/* <a href="/newtasklist">
-        //   <button className='ui animated button'>
-        //     <div className='visible content'>Create a Tasklist</div>
-        //     <div className='hidden content'>
-        //       <i aria-hidden='true' className='tasks icon' />
-        //     </div>
-        //   </button>
-        // </a> */}
+        // <b><Link to="/tasks">View my Tasks</Link></b>
+        <a href="/tasks">
+          <button className='ui animated button'>
+            <div className='visible content'>View my Tasks</div>
+            <div className='hidden content'>
+              <i aria-hidden='true' className='tasks icon' />
+            </div>
+          </button>
+        </a>
       )
     }
   }

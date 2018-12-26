@@ -1,7 +1,8 @@
-import { FETCH_TASKLISTS, CREATE_TASKLIST } from '../actions/types'
+import { FETCH_TASKLISTS, CREATE_TASKLIST, FAILED_TASKLIST } from '../actions/types'
 
 const initialState = {
-  tasklists: []
+  tasklists: [],
+  error: null
 }
 
 const tasklistsReducer = (state = initialState, action) => {
@@ -17,6 +18,12 @@ const tasklistsReducer = (state = initialState, action) => {
         ...state,
         tasklists: [...state.tasklists, action.tasklist]
       }
+
+    // case FAILED_TASKLIST:
+    //   return {
+    //     ...state,
+    //     error: action.payload,
+    //   }
 
     default:
       return state

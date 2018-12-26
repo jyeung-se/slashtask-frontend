@@ -6,6 +6,7 @@ import SearchBar from '../components/SearchBar'
 import { Link } from 'react-router-dom'
 import SlashedTaskCounter from '../components/SlashedTaskCounter'
 import ClockTime from '../components/ClockTime'
+import { Table } from 'semantic-ui-react'
 
 
 class SlashedTaskList extends Component {
@@ -62,26 +63,26 @@ class SlashedTaskList extends Component {
           <SlashedTaskCounter tasks={this.state.tasks} />
           <SearchBar searchInput={this.state.searchInput} handleChange={this.handleChange} tasks={this.props.tasks} />
 
-          <table className="ui celled striped padded table">
-            <tbody>
-              <tr>
-                <th>
+          <Table color="green" inverted className="ui celled striped padded table">
+            <Table.Body>
+              <Table.Row>
+                <Table.HeaderCell>
                   <h3 className="ui center aligned header">Task Title</h3>
-                </th>
-                <th>
+                </Table.HeaderCell>
+                <Table.HeaderCell>
                   <h3 className="ui center aligned header">Task Description</h3>
-                </th>
-                <th>
+                </Table.HeaderCell>
+                <Table.HeaderCell>
                   <h3 className="ui center aligned header">Date Slashed</h3>
-                </th>
-                <th>
-                  <h3 className="ui center aligned header">UnSlash Task</h3>
-                </th>
-              </tr>
+                </Table.HeaderCell>
+                <Table.HeaderCell>
+                  <h3 className="ui center aligned header">Unslash Task</h3>
+                </Table.HeaderCell>
+              </Table.Row>
 
               {this.mappedSlashedTasks()}
-            </tbody>
-          </table>
+            </Table.Body>
+          </Table>
         </div>
       )
     }

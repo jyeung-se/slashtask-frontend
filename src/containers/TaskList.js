@@ -4,10 +4,9 @@ import Task from '../components/Task'
 import { connect } from 'react-redux'
 import EditForm from '../components/EditForm'
 import SearchBar from '../components/SearchBar'
-import { Redirect, Link } from 'react-router-dom'
-import { fetchTasklists } from '../actions/tasklist_actions'
 import TaskCounter from '../components/TaskCounter'
 import ClockTime from '../components/ClockTime'
+import { Table } from 'semantic-ui-react'
 
 
 class TaskList extends Component {
@@ -104,37 +103,35 @@ class TaskList extends Component {
          />}
         <br/>
         <a href="/newtask"><button className="ui button left">Create a new task</button></a>
-        {/* <Link to="/newtask">Create a new task</Link> */}
         {"  ~    ~  "}
         <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
-        {/* <Link to="/slashed_tasks">View Slashed Tasks</Link> */}
 
-        <table className="ui celled striped padded table">
-          <tbody>
-            <tr>
-              <th>
+        <Table color="teal" inverted className="ui celled striped padded table">
+          <Table.Body>
+            <Table.Row>
+              <Table.HeaderCell>
                 <h3 className="ui center aligned header">Task Title</h3>
-              </th>
-              <th>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
                 <h3 className="ui center aligned header">Task Description</h3>
-              </th>
-              <th>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
                 <h3 className="ui center aligned header">Date Posted</h3>
-              </th>
-              <th>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
                 <h3 className="ui center aligned header">Update Task</h3>
-              </th>
-              <th>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
                 <h3 className="ui center aligned header">Slash Task</h3>
-              </th>
-              <th>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
                 <h3 className="ui center aligned header">Delete Task</h3>
-              </th>
-            </tr>
+              </Table.HeaderCell>
+            </Table.Row>
 
             {this.mappedTasks()}
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table>
       </div>
     )
   }
