@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { editTask, deleteTask, slashTask } from '../actions/task_actions'
+import { editTask, deleteTask, slashTask, fetchTasks } from '../actions/task_actions'
 import Task from '../components/Task'
 import { connect } from 'react-redux'
 import EditForm from '../components/EditForm'
@@ -7,6 +7,7 @@ import SearchBar from '../components/SearchBar'
 import TaskCounter from '../components/TaskCounter'
 import ClockTime from '../components/ClockTime'
 import { Table } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 
 class TaskList extends Component {
@@ -15,17 +16,25 @@ class TaskList extends Component {
 
     this.state={
       currentTask: null,
-      users: [],
-      user: {
-        id: 1,
-        username: "AerosDawson",
-        first_name: "Jack",
-        last_name: "Yeung",
-        city: "New York",
-        state: "NY",
-      },
-      searchInput: ''
+      // users: [],
+      // user: {
+      //   id: 1,
+      //   username: "AerosDawson",
+      //   first_name: "Jack",
+      //   last_name: "Yeung",
+      //   city: "New York",
+      //   state: "NY",
+      // },
+      searchInput: '',
+      likeCounter: 0
     }
+  }
+
+
+  componentDidMount() {
+    fetch('http://localhost:3000/api/v1/tasks')
+    .then(res => res.json())
+    .then(task => fetchTasks(task))
   }
 
 
@@ -80,7 +89,8 @@ class TaskList extends Component {
     key={task.id}
     handleEditTask={this.handleEditTask}
     handleSlashTask={this.handleSlashTask}
-    handleDeleteTask={this.handleDeleteTask} />
+    handleDeleteTask={this.handleDeleteTask}
+    likeCounter={this.state.likeCounter} />
     )
   }
 
@@ -89,7 +99,7 @@ class TaskList extends Component {
 
     return (
       <div>
-        <a href="/"><button className="ui button left">Back to Frontpage</button></a>
+        <Link to="/"><button className="ui button left">Back to Frontpage</button></Link>
         <br/>
         <br/>
         <br/>
@@ -102,9 +112,9 @@ class TaskList extends Component {
         handleEditSubmit={this.handleEditSubmit}
          />}
         <br/>
-        <a href="/newtask"><button className="ui button left">Create a new task</button></a>
+        <Link to="/newtask"><button className="ui button left">Create a new task</button></Link>
         {"  ~    ~  "}
-        <a href="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></a>
+        <Link to="/slashed_tasks"><button className="ui button left">View Slashed Tasks</button></Link>
 
         <Table color="teal" inverted className="ui celled striped padded table">
           <Table.Body>
@@ -126,6 +136,9 @@ class TaskList extends Component {
               </Table.HeaderCell>
               <Table.HeaderCell>
                 <h3 className="ui center aligned header">Delete Task</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header"># of likes</h3>
               </Table.HeaderCell>
             </Table.Row>
 

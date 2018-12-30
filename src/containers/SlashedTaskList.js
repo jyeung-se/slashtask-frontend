@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import SlashedTask from '../components/SlashedTask'
-import { slashTask } from '../actions/task_actions'
+import { slashTask, fetchTasks } from '../actions/task_actions'
 import { connect } from 'react-redux'
 import SearchBar from '../components/SearchBar'
 import SlashedTaskCounter from '../components/SlashedTaskCounter'
 import ClockTime from '../components/ClockTime'
 import { Table } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 
 class SlashedTaskList extends Component {
@@ -15,6 +16,13 @@ class SlashedTaskList extends Component {
     this.state={
       searchInput: ''
     }
+  }
+
+
+  componentDidMount() {
+    fetch('http://localhost:3000/api/v1/tasks')
+    .then(res => res.json())
+    .then(task => fetchTasks(task))
   }
 
 
@@ -51,7 +59,7 @@ class SlashedTaskList extends Component {
 
     return (
       <div>
-        <a href="/tasks"><button className="ui button left">Back to my Task List</button></a>
+        <Link to="/tasks"><button className="ui button left">Back to my Task List</button></Link>
         <br/>
         <br/>
         <br/>

@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
+
 
 class SignUpPage extends Component {
   constructor(props) {
@@ -42,7 +44,7 @@ class SignUpPage extends Component {
     return (
       <Fragment>
         <br/>
-        <a href="/"><button className="ui button">Return to Front Page</button></a>
+        <Link to="/"><button className="ui button">Return to Front Page</button></Link>
         <h1>Welcome! Please register for slashTask below.</h1>
         <form
           className="ui form center aligned sixteen wide column"
