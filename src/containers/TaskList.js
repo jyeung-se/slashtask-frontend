@@ -25,8 +25,7 @@ class TaskList extends Component {
       //   city: "New York",
       //   state: "NY",
       // },
-      searchInput: '',
-      likeCounter: 0
+      searchInput: ''
     }
   }
 
@@ -95,8 +94,7 @@ class TaskList extends Component {
     handleEditTask={this.handleEditTask}
     handleLikeTask={this.handleLikeTask}
     handleSlashTask={this.handleSlashTask}
-    handleDeleteTask={this.handleDeleteTask}
-    likeCounter={this.state.likeCounter} />
+    handleDeleteTask={this.handleDeleteTask} />
     )
   }
 
