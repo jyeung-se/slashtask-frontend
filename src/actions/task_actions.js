@@ -1,4 +1,4 @@
-import { FETCH_TASKS, CREATE_TASK, EDIT_TASK, SLASH_TASK, DELETE_TASK } from './types'
+import { FETCH_TASKS, CREATE_TASK, EDIT_TASK, LIKE_TASK, SLASH_TASK, DELETE_TASK } from './types'
 import store from '../store'
 
 export const fetchTasks = (task) => {
@@ -17,6 +17,7 @@ export const createTask = (user_id, task) => {
       "description": `${task.description}`,
       "date_posted": `${task.created_at}`,
       "slashed": false,
+      "likes": 0,
       "task_list_id": 1,
       "date_completed": `${task.date_completed}`,
       "user_id": `${user_id}`
@@ -37,6 +38,17 @@ export const editTask = (task) => {
   // }).then(res => console.log("Updated the task."))
   }).then(res => res.json())
   .then(edited_task => store.dispatch({type: EDIT_TASK, task: edited_task}))
+}
+
+export const likeTask = (task) => {
+  fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+    method: "PATCH",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      "likes": task.likes + 1
+    })
+  }).then(res => res.json())
+  .then(liked_task => store.dispatch({type: LIKE_TASK, task: liked_task}))
 }
 
 export const slashTask = (task) => {

@@ -77,6 +77,9 @@ class SlashedTaskList extends Component {
                 <h3 className="ui center aligned header">Task Description</h3>
               </Table.HeaderCell>
               <Table.HeaderCell>
+                <h3 className="ui center aligned header">Likes</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
                 <h3 className="ui center aligned header">Date Slashed</h3>
               </Table.HeaderCell>
               <Table.HeaderCell>

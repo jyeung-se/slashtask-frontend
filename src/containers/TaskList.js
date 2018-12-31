@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { editTask, deleteTask, slashTask, fetchTasks } from '../actions/task_actions'
+import { editTask, deleteTask, slashTask, fetchTasks, likeTask } from '../actions/task_actions'
 import Task from '../components/Task'
 import { connect } from 'react-redux'
 import EditForm from '../components/EditForm'
@@ -59,6 +59,11 @@ class TaskList extends Component {
   }
 
 
+  handleLikeTask = (task) => {
+    likeTask(task)
+  }
+
+
   handleSlashTask = (task) => {
     slashTask(task)
   }
@@ -88,6 +93,7 @@ class TaskList extends Component {
     .map((task) => <Task task={task}
     key={task.id}
     handleEditTask={this.handleEditTask}
+    handleLikeTask={this.handleLikeTask}
     handleSlashTask={this.handleSlashTask}
     handleDeleteTask={this.handleDeleteTask}
     likeCounter={this.state.likeCounter} />
@@ -129,6 +135,9 @@ class TaskList extends Component {
                 <h3 className="ui center aligned header">Date Posted</h3>
               </Table.HeaderCell>
               <Table.HeaderCell>
+              <h3 className="ui center aligned header">Likes</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
                 <h3 className="ui center aligned header">Update Task</h3>
               </Table.HeaderCell>
               <Table.HeaderCell>
@@ -136,9 +145,6 @@ class TaskList extends Component {
               </Table.HeaderCell>
               <Table.HeaderCell>
                 <h3 className="ui center aligned header">Delete Task</h3>
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <h3 className="ui center aligned header"># of likes</h3>
               </Table.HeaderCell>
             </Table.Row>
 
