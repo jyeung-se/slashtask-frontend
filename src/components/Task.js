@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 
 const Task = props => {
   // console.log("Tasks props", props)
