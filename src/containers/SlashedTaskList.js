@@ -103,4 +103,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(SlashedTaskList)
+export default withAuth(connect(mapStateToProps)(SlashedTaskList))

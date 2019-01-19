@@ -81,6 +81,7 @@ class TaskList extends Component {
   }
 
 
+
   mappedTasks = () => {
     // console.log('non-slashed tasks: ', this.props.tasks.filter((task) => task.slashed === false))
     // console.log('non-slashed && filtered tasks: ', this.props.tasks.filter((task) => task.slashed === false && task.title.toLowerCase().includes(this.props.searchInput)))
@@ -161,5 +162,7 @@ function mapStateToProps(state) {
     tasklists: state.tasklists.tasklists
   }
 }
+// }
 
-export default connect(mapStateToProps)(TaskList)
+
+export default withAuth(connect(mapStateToProps)(TaskList))

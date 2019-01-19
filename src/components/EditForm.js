@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-
+import withAuth from '../hocs/withAuth'
 // const EditForm = (props) => {
 class EditForm extends Component {
   constructor(props) {
@@ -96,4 +96,4 @@ class EditForm extends Component {
   }
   }
 
-export default EditForm
+export default withAuth(EditForm) // wrap component with auth HOC to limit access

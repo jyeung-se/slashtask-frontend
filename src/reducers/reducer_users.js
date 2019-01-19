@@ -3,7 +3,8 @@ import { CREATE_USER, SET_CURRENT_USER, FAILED_LOGIN, LOG_OUT } from '../actions
 const initialState = {
   users: [],
   currentUser: null,
-  logged_in: false,
+  authenticatingUser: false,
+  loggedIn: false,
   failedLogin: false,
   error: null
 }
@@ -19,8 +20,9 @@ const usersReducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state,
-        user: action.payload,
-        logged_in: true
+        currentUser: action.user,
+        loggedIn: true,
+        authenticatingUser: false
       }
     case FAILED_LOGIN:
       return {
@@ -29,8 +31,14 @@ const usersReducer = (state = initialState, action) => {
         error: action.payload
       }
     case LOG_OUT:
-      return state
-
+      return {
+        ...state,
+        currentUser: null,
+        authenticatingUser: false,
+        loggedIn: false,
+        failedLogin: false,
+        error: false
+      }
     default:
       return state
   }

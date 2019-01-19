@@ -34,9 +34,12 @@ class SignUpPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    if (this.props.registerUser) {
-      this.props.registerUser(this.state.newUser)
+    if (this.props.createUser && this.props.createTasklist) {
+      this.props.createUser(this.state.newUser)
+      // this.props.createTasklist(this.state.tasklist)
+      this.props.history.push("/tasks")
     }
+    // to prevent breaking if register with an error
   }
 
 
@@ -71,14 +74,17 @@ class SignUpPage extends Component {
                 onChange={this.updateSignUpInputs}
               />
             </div>
-            <button className="ui button" type="submit" value="Submit">
-              Register
-            </button>
-          </div>
-        </form>
-      </Fragment>
-    )
-  }
+          </form>
+        </Fragment>
+      )
+    }
+    }
   }
 
-export default SignUpPage
+  const mapStateToProps = ({ users: { logged_in } }) => {
+    return {
+      logged_in
+    }
+  }
+
+export default connect(mapStateToProps)(SignUpPage)

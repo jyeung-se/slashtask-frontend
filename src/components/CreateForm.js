@@ -35,7 +35,6 @@ class CreateForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.props.handleNewTaskSubmit(this.state.newTask)
-    this.props.history.push("/tasks")
   }
 
 

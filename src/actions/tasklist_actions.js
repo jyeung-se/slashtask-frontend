@@ -1,5 +1,6 @@
 import { FETCH_TASKLISTS, CREATE_TASKLIST } from './types'
 import store from '../store'
+import { fetchCurrentUser } from './user_actions'
 
 
 export const fetchTasklists = (tasklist) => {

@@ -2,16 +2,26 @@ import { FETCH_TASKS, CREATE_TASK, EDIT_TASK, LIKE_TASK, SLASH_TASK, DELETE_TASK
 import store from '../store'
 
 export const fetchTasks = (task) => {
-  store.dispatch({
-    type: FETCH_TASKS,
-    payload: task
-  })
+  fetch(`http://localhost:3000/api/v1/tasks/`, {
+    method: "GET",
+    headers: {Authorization: `Bearer ${localStorage.getItem('jwt')}`},
+  }).then(res => res.json())
+  .then(tasks => store.dispatch({type: FETCH_TASKS, tasks: tasks}))
 }
+//   store.dispatch({
+//     type: FETCH_TASKS,
+//     payload: task
+//   })
+// }
 
 export const createTask = (user_id, task) => {
   fetch(`http://localhost:3000/api/v1/tasks/`, {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`
+    },
     body: JSON.stringify({
       "title": `${task.title}`,
       "description": `${task.description}`,

@@ -89,7 +89,6 @@ class LoginPage extends Component {
       </Fragment>
     )
   }
-}
 
   const mapStateToProps = (state) => {
   return {
@@ -105,8 +104,5 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: (username, password) => dispatch(login(username, password))
   }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
-
-// export default LoginPage
+export default connect(mapStateToProps)(LoginPage)
