@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router'
-// import { login } from '../actions/user_actions'
+import { login } from '../actions/user_actions'
+import { Link } from 'react-router-dom'
 
 
 class LoginPage extends Component {
@@ -11,7 +11,8 @@ class LoginPage extends Component {
     this.state = {
       currentUser: {
         username: '',
-        password: ''
+        password: '',
+        logged_in: false
       }
     }
   }
@@ -33,67 +34,75 @@ class LoginPage extends Component {
   handleLogin = (event) => {
     event.preventDefault()
 
-    if (this.props.login) {
-      this.props.login(this.state.currentUser)
-    }
+    this.props.login(this.state.currentUser.username, this.state.currentUser.password);
+    console.log(this.state);
+    // debugger
+    this.setState({
+      currentUser: {
+        username: this.state.currentUser.username,
+        password: this.state.currentUser.password,
+        logged_in: true
+      }
+    })
+    // debugger
   }
 
 
   render() {
-    // console.log("login state is", this.state)
-    if (this.props.loggedIn) {
-      return <Redirect to={'/tasks'} />
-    } else {
-      return (
-        <Fragment>
-          <br/>
-          <a href="/"><button className="ui button">Return to Front Page</button></a>
-          <h1>Welcome back! Please login below.</h1>
-          {/* <h4 className="ui dividing header"></h4> */}
-          <form
-            className="ui form"
-            onSubmit={this.handleLogin}
-          >
-            <div className="field">
-              <label>Login Information</label>
-              <div className="two fields">
-                <div className="three wide field">
-                  <input
-                    id="username"
-                    type="text"
-                    name="username"
-                    placeholder="User Name"
-                    value={this.state.currentUser.username}
-                    onChange={this.updateLoginInputs}
-                  />
-                </div>
-                <div className="three wide field">
-                  <input
-                    id="password"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={this.state.currentUser.password}
-                    onChange={this.updateLoginInputs}
-                  />
-                </div>
-              </div>
-                <button className="ui button" type="submit" value="Submit">
-                  Login
-                </button>
-              </div>
-            </form>
-          </Fragment>
-        )
-      }
-    }
+    console.log("state is", this.state)
+
+    return (
+      <Fragment>
+        <br/>
+        <Link to="/"><button className="ui button">Return to Front Page</button></Link>
+        <h1>Welcome back! Please login below.</h1>
+        <form
+          className="ui form center aligned sixteen wide column"
+          onSubmit={this.handleLogin}
+        >
+          <div className="inline fields">
+            <div className="eight wide field">
+              <input
+                id="username"
+                type="text"
+                name="username"
+                placeholder="User Name"
+                value={this.state.currentUser.username}
+                onChange={this.updateLoginInputs}
+              />
+            </div>
+            <div className="eight wide field">
+              <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={this.state.currentUser.password}
+                onChange={this.updateLoginInputs}
+              />
+            </div>
+            <button className="ui button" type="submit" value="Submit">
+              Login
+            </button>
+          </div>
+        </form>
+      </Fragment>
+    )
   }
 
+  const mapStateToProps = (state) => {
+  return {
+    currentUser: state.currentUser
+    // currentUser: {
+    //   username: state.currentUser.username,
+    //   password: state.currentUser.password
+    // }
+  }
+}
 
-  const mapStateToProps = ({ users: { loggedIn } }) => {
-    return {
-      loggedIn
-    }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (username, password) => dispatch(login(username, password))
   }
 
 export default connect(mapStateToProps)(LoginPage)

@@ -1,47 +1,96 @@
 import React, { Component } from 'react'
 import SlashedTask from '../components/SlashedTask'
+import { slashTask, fetchTasks } from '../actions/task_actions'
 import { connect } from 'react-redux'
-import withAuth from '../hocs/withAuth'
-import { compose } from 'redux'
+import SearchBar from '../components/SearchBar'
+import SlashedTaskCounter from '../components/SlashedTaskCounter'
+import ClockTime from '../components/ClockTime'
+import { Table } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+
 
 class SlashedTaskList extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state={
+      searchInput: ''
+    }
+  }
+
+
+  componentDidMount() {
+    fetch('http://localhost:3000/api/v1/tasks')
+    .then(res => res.json())
+    .then(task => fetchTasks(task))
+  }
+
+
+  handleSlashTask = (task) => {
+    slashTask(task)
+  }
+
+
+  handleChange = (event) => {
+    event.preventDefault()
+    this.setState({
+      searchInput: event.target.value
+    })
+  }
+
 
   mappedSlashedTasks = () => {
     // this.props.slashedTasks here are already filtered
     // for only slashed tasks (true) via filter()
     // in the mapStateToProps() at the very bottom
-    return this.props.slashedTasks.sort((a, b) => a.updated_at- b.updated_at)
+    return this.props.tasks.filter((task) => task.slashed === true &&
+      (task.title.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.description.toLowerCase().includes(this.state.searchInput.toLowerCase()) || task.updated_at.split("T")[0].includes(this.state.searchInput)))
+    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+    // .sort to sort by most recent slashed task instead of ID by default
     .map((task, index) => <SlashedTask
       task={task}
       key={index}
-      handleSlashTask={this.props.handleSlashTask} />
+      handleSlashTask={this.handleSlashTask} />
     )
   }
 
   render() {
-    console.log("SlashedTaskList props are", this.props)
+    // console.log("SlashedTaskList props are", this.props)
 
     return (
-      <table className="ui celled striped padded table">
-        <tbody>
-          <tr>
-            <th>
-              <h3 className="ui center aligned header">Task Title</h3>
-            </th>
-            <th>
-              <h3 className="ui center aligned header">Task Description</h3>
-            </th>
-            <th>
-              <h3 className="ui center aligned header">Date Slashed</h3>
-            </th>
-            <th>
-              <h3 className="ui center aligned header">UnSlash Task</h3>
-            </th>
-          </tr>
+      <div>
+        <Link to="/tasks"><button className="ui button left">Back to my Task List</button></Link>
+        <br/>
+        <br/>
+        <br/>
+        <b>The current time and date is: </b><b style={{ color: 'blue' }}><ClockTime /></b>
+        <SlashedTaskCounter tasks={this.state.tasks} />
+        <SearchBar searchInput={this.state.searchInput} handleChange={this.handleChange} tasks={this.props.tasks} />
 
-          {this.mappedSlashedTasks()}
-        </tbody>
-      </table>
+        <Table color="green" inverted className="ui celled striped padded table">
+          <Table.Body>
+            <Table.Row>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Task Title</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Task Description</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Likes</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Date Slashed</h3>
+              </Table.HeaderCell>
+              <Table.HeaderCell>
+                <h3 className="ui center aligned header">Unslash Task</h3>
+              </Table.HeaderCell>
+            </Table.Row>
+
+            {this.mappedSlashedTasks()}
+          </Table.Body>
+        </Table>
+      </div>
     )
   }
 }
@@ -49,10 +98,8 @@ class SlashedTaskList extends Component {
 function mapStateToProps(state) {
   // Whatever is returned will show up as props inside TaskList
   return {
-    slashedTasks: state.tasks.tasks
-    .filter((task) => task.slashed === true)
-    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-    // .sort to sort by most recent completed task instead of ID by default
+    tasks: state.tasks.tasks,
+    tasklists: state.tasklists.tasklists
   }
 }
 

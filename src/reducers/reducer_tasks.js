@@ -1,8 +1,7 @@
-import { FETCH_TASKS, CREATE_TASK, EDIT_TASK, SLASH_TASK, DELETE_TASK } from '../actions/types'
+import { FETCH_TASKS, CREATE_TASK, EDIT_TASK, LIKE_TASK, SLASH_TASK, DELETE_TASK } from '../actions/types'
 
 const initialState = {
-  tasks: [],
-  // slashedTasks: []
+  tasks: []
 }
 
 const tasksReducer = (state = initialState, action) => {
@@ -22,7 +21,14 @@ const tasksReducer = (state = initialState, action) => {
     case EDIT_TASK:
       return {
         ...state,
-        // tasks: action.payload
+        tasks: state.tasks.map(
+          singleTask => (singleTask.id === action.task.id ? Object.assign(singleTask, action.task) : singleTask)
+        )
+      }
+
+    case LIKE_TASK:
+      return {
+        ...state,
         tasks: state.tasks.map(
           singleTask => (singleTask.id === action.task.id ? Object.assign(singleTask, action.task) : singleTask)
         )
@@ -31,16 +37,13 @@ const tasksReducer = (state = initialState, action) => {
     case SLASH_TASK:
       return {
         ...state,
-        // tasks: action.payload
-        tasks: state.tasks.filter((task) => task.id !== action.task.id),
-        // slashedTasks: [state.slashedTasks, action.task]
-        // .sort((a,b) => a.created_at - b.created_at)
+        tasks: state.tasks.filter((task) => task.id !== action.task.id)
       }
 
     case DELETE_TASK:
       return {
         ...state,
-        tasks: state.tasks.filter((task) => task.id !== action.task.id)
+        tasks: state.tasks.filter((task) => task.id !== action.task.taskId)
       }
 
     default:

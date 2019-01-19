@@ -11,14 +11,12 @@ import { push } from 'react-router-redux'
         Accept: "application/json"
       },
       body: JSON.stringify({
-        user: {
-          username: user.username,
-          password: user.password,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          city: user.city,
-          state: user.state
-        }
+        "username": `${user.username}`,
+        // "password": `${user.password}`,
+        "first_name": `${user.first_name}`,
+        "last_name": `${user.last_name}`,
+        "city": `${user.city}`,
+        "state": `${user.state}`
       })
     // }).then(res => console.log("Created a new user."))
     }).then(response => {

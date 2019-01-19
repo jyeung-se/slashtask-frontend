@@ -1,29 +1,62 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react'
 import CarouselSlider from './CarouselSlider'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
-class FrontPage extends Component {
+
+const FrontPage = (props) => {
+
+  const showCreateTasklistButton = () => {
+    if (props.tasklists.length === 0) {
+      return (
+        <Link to="/newtasklist">
+          <button className='ui animated button'>
+            <div className='visible content'>Create a Tasklist</div>
+            <div className='hidden content'>
+              <i aria-hidden='true' className='tasks icon' />
+            </div>
+          </button>
+        </Link>
+      )
+    }
+  }
+
+  const showViewTasksButton = () => {
+    if (props.tasklists.length > 0) {
+      return (
+        <Link to="/tasks">
+          <button className='ui animated button'>
+            <div className='visible content'>View my Tasks</div>
+            <div className='hidden content'>
+              <i aria-hidden='true' className='tasks icon' />
+            </div>
+          </button>
+        </Link>
+      )
+    }
+  }
 
 
-  render() {
     return (
       <Fragment>
-        <a href="/signup">
+        {/* SignUp and Login buttons hidden for noAuth version */}
+        {/* <Link to="/signup">
           <button className='ui animated button'>
             <div className='visible content'>Sign Up</div>
             <div className='hidden content'>
               <i aria-hidden='true' className='edit icon' />
             </div>
           </button>
-        </a>
+        </Link>
         {"  | |  "}
-        <a href="/login">
+        <Link to="/login">
           <button className='ui animated button'>
             <div className='visible content'>Login</div>
             <div className='hidden content'>
               <i aria-hidden='true' className='user icon' />
             </div>
           </button>
-        </a>
+        </Link> */}
         <div className="ui raised segment">
           <div className="ui center aligned segment violet inverted">
             <header className="App-header">
@@ -32,21 +65,31 @@ class FrontPage extends Component {
               <h1>Slash Off One Task at a Time</h1>
             </header>
           </div>
-          <a href="/tasks">
+          {showViewTasksButton()}
+          {/* <Link to="/tasks">
             <button className='ui animated button'>
               <div className='visible content'>View my Tasks</div>
               <div className='hidden content'>
                 <i aria-hidden='true' className='tasks icon' />
               </div>
             </button>
-          </a>
+          </Link> */}
+          {/* {'   ||   '} */}
+          {showCreateTasklistButton()}
           <br/>
           <br/>
           <CarouselSlider />
         </div>
       </Fragment>
     )
+
+}
+
+
+function mapStateToProps(state) {
+  return {
+    tasklists: state.tasklists.tasklists
   }
 }
 
-export default FrontPage
+export default connect(mapStateToProps)(FrontPage)

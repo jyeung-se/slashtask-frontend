@@ -1,11 +1,18 @@
 export const FETCH_TASKS = 'FETCH_TASKS'
 export const CREATE_TASK = 'CREATE_TASK'
 export const EDIT_TASK = 'EDIT_TASK'
+export const LIKE_TASK = 'LIKE_TASK'
 export const SLASH_TASK = 'SLASH_TASK'
 export const DELETE_TASK = 'DELETE_TASK'
 
+export const UPDATE_SEARCH = 'UPDATE_SEARCH'
+
+
+export const CREATE_USER = 'CREATE_USER'
+
+export const FETCH_TASKLISTS = 'FETCH_TASKLISTS'
 export const CREATE_TASKLIST ='CREATE_TASKLIST'
-export const SET_CURRENT_TASKLIST ='SET_CURRENT_TASKLIST'
+export const FAILED_TASKLIST ='FAILED_TASKLIST'
 
 export const CREATE_USER = 'CREATE_USER'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'

@@ -7,9 +7,11 @@ const Task = props => {
     <tr>
       <td>{props.task.title}</td>
       <td>{props.task.description}</td>
-      <td>{props.task.created_at}</td>
+      <td><center>{props.task.created_at.split("T")[0]}</center></td>
       <td>
-        {/* <a href="/editTask"><button className="ui button left" onClick={() => props.handleEditTask(props.task)}>Edit</button></a> */}
+      <center><button className="ui button" onClick={() => props.handleLikeTask(props.task)}>{props.task.likes}</button></center>
+      </td>
+      <td>
         <center><button className="ui button" onClick={() => props.handleEditTask(props.task)}>Edit</button></center>
       </td>
       <td>

@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import withAuth from '../hocs/withAuth'
-import { Redirect } from 'react-router'
 import { connect } from 'react-redux'
-
 
 class CreateForm extends Component {
   constructor(props) {
@@ -42,13 +39,15 @@ class CreateForm extends Component {
 
 
   render () {
-    console.log("CreateForm props are: ", this.props)
+    // console.log("CreateForm props are: ", this.props)
 
-    if (this.props.loggedIn) {
-      return (
+    // if (this.props.tasklists.length === 0) {
+    //   alert('Please create a Tasklist first.')
+    //   return <Redirect to={'/newtasklist'} />
+    //   } else {
+        return (
         <Fragment>
           <br/>
-          <a href="/"><button className="ui button left">Back to my Task List</button></a>
           <h1>Create a New Task</h1>
           <form
             className="ui form center aligned sixteen wide column"
@@ -82,16 +81,15 @@ class CreateForm extends Component {
           </form>
         </Fragment>
       )
-    } else {
-      return <Redirect to={'/login'} />
     }
+  // }
+}
+
+
+function mapStateToProps(state) {
+  return {
+    tasklists: state.tasklists.tasklists
   }
 }
 
-  const mapStateToProps = ({ users: { loggedIn } }) => {
-    return {
-      loggedIn
-    }
-  }
-
-export default withAuth(connect(mapStateToProps)(CreateForm))
+export default connect(mapStateToProps)(CreateForm)
