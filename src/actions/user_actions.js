@@ -13,7 +13,7 @@ export const login = (user) => {
 
   export const createUser = (user) => {
     console.log(user);
-    fetch(`http://localhost:3000/api/v1/users/`, {
+    fetch(`https://slashtask.herokuapp.com:3000/api/v1/users/`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({

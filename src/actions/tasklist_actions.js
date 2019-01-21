@@ -11,7 +11,7 @@ export const fetchTasklists = (tasklist) => {
 
 
 export const createTasklist = (tasklist) => {
-  fetch(`http://localhost:3000/api/v1/task_lists/`, {
+  fetch(`https://slashtask.herokuapp.com:3000/api/v1/task_lists/`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({

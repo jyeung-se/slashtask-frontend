@@ -31,7 +31,7 @@ class TaskList extends Component {
 
 
   componentDidMount() {
-    fetch('http://localhost:3000/api/v1/tasks')
+    fetch('https://slashtask.herokuapp.com:3000/api/v1/tasks')
     .then(res => res.json())
     .then(task => fetchTasks(task))
   }

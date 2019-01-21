@@ -9,7 +9,7 @@ export const fetchTasks = (task) => {
 }
 
 export const createTask = (user_id, task) => {
-  fetch(`http://localhost:3000/api/v1/tasks/`, {
+  fetch(`https://slashtask.herokuapp.com:3000/api/v1/tasks/`, {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -28,7 +28,7 @@ export const createTask = (user_id, task) => {
 }
 
 export const editTask = (task) => {
-  fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+  fetch(`https://slashtask.herokuapp.com:3000/api/v1/tasks/${task.id}`, {
     method: "PATCH",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -41,7 +41,7 @@ export const editTask = (task) => {
 }
 
 export const likeTask = (task) => {
-  fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+  fetch(`https://slashtask.herokuapp.com:3000/api/v1/tasks/${task.id}`, {
     method: "PATCH",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -52,7 +52,7 @@ export const likeTask = (task) => {
 }
 
 export const slashTask = (task) => {
-  fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+  fetch(`https://slashtask.herokuapp.com:3000/api/v1/tasks/${task.id}`, {
     method: "PATCH",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
@@ -64,7 +64,7 @@ export const slashTask = (task) => {
 }
 
 export const deleteTask = (task) => {
-  fetch(`http://localhost:3000/api/v1/tasks/${task.id}`, {
+  fetch(`https://slashtask.herokuapp.com:3000/api/v1/tasks/${task.id}`, {
     method: "DELETE",
     headers: {"Content-Type": "application/json"}
   // }).then(res => console.log("Deleted the task."))
