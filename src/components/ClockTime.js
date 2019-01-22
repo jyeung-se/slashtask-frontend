@@ -4,7 +4,7 @@ import Clock from 'react-live-clock'
 const ClockTime = () => {
   return (
     <Clock
-        format={'dddd, MMMM Mo, YYYY, h:mm:ss A'}
+        format={'dddd - MMMM Do, YYYY - h:mm:ss A'}
         ticking={true}
         timezone={'US/Eastern'} />
   )
